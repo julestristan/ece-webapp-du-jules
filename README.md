@@ -4,4 +4,4 @@ Repository du projet Webtech 2022
 
 ## Contributeurs
 - Tristan JULES
-- Thomas DU
+- Thomas :DU
