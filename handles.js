@@ -1,4 +1,3 @@
-// Necessary imports
 const url = require('url')
 const qs = require('querystring')
 const myAbout = require('./content/about.json')
@@ -15,11 +14,11 @@ module.exports = {
       
         if (path === '/hello') {
             if('name' in params){
-                if(params['name'] === 'Thomas') {
+                if(params['name'] === 'Thomas') { // http://localhost:3000/hello?name=Thomas
                     res.write('I\'m ' + params['name'] + ' I\'m a student')
                 }
                 else {
-                    res.write('Hello ' + params['name'])
+                    res.write('Hello ' + params['name']) // params['name'] == params.name
                 }
             }
             else {
@@ -27,11 +26,14 @@ module.exports = {
             }
         }
         else if (path === '/') {
-            res.write('Home page')
+            res.write('Home page') // http://localhost:3000/
         }
         else if (path === '/about') {
             res.write(myAbout['author'])
+            res.write('\n')
             res.write(myAbout['content'])
+            res.write('\n')
+            res.write(JSON.stringify(myAbout))
         }
         else {
           res.write('Error 4O4 page not found')
@@ -39,4 +41,4 @@ module.exports = {
         
         res.end();
     } 
-  }
+}
