@@ -1,7 +1,11 @@
 # Webapp 2022
 
 Repository du projet Webtech 2022
+## Prérequis
 
+```bash
+    npm install express
+```
 ## Essayer le code
 
 Commencez par initialiser npm : 
