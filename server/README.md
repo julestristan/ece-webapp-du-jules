@@ -4,18 +4,18 @@ Repository du projet Webtech 2022
 ## Prérequis
 
 ```bash
-    npm install express
+npm install express
 ```
 ## Essayer le code
 
 Commencez par initialiser npm : 
 ```bash
-    npm init -y
+npm init -y
 ```
 
 Puis :
 ```bash
-    npm run develop
+npm run develop
 ```
 
 Accedez à la page d'accueil via : http://localhost:3000/
