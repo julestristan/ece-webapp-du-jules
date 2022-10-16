@@ -24,6 +24,7 @@ Accedez à la page d'accueil via : http://localhost:3000/
 Voici les routes disponibles :
 - http://localhost:3000/hello/ + *nom*
 - http://localhost:3000/about
+- http://localhost:3000/articles
 
 ## Contributeurs
 - Tristan JULES

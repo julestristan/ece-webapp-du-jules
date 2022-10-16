@@ -1,9 +1,11 @@
 const mainRouter = require('./mainRouter')
+const articles = require('./article')
 const express = require('express')
-const myAbout = require('./content/about.json')
 
 const app = express()
 const port = 3000
+
+// app.use('/articles', articles)
 
 app.use('/', mainRouter)
 
