@@ -26,6 +26,14 @@ Voici les routes disponibles :
 - http://localhost:3000/about
 - http://localhost:3000/articles
 
+## Test
+
+Tester avec la console :
+```bash
+curl POST test : curl -X POST http://localhost:3000/articles  -H 'Content-Type: application/json'  -d '{"id":"1", "title":"Article x", "content":"Content", "date":"04/10/2022", "author":"Thomas"}'
+curl GET test : curl -X GET http://localhost:3000/articles 
+```
+
 ## Contributeurs
 - Tristan JULES
 - Thomas DU

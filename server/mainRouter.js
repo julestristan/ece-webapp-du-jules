@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const myAbout = require('./content/about.json')
+const { v4: uuidv4 } = require('uuid')
 
 const authors = ['Thomas', 'Tristan']
 
@@ -28,8 +29,8 @@ router.get('/about', (req, res) => {
 let db = {
   articles: [
     {
-      id: '6ec0bd7f-11c0-43da-975e-2a8ad9ebae0b',
-      title: 'My article',
+      id: '1',
+      title: 'My article 1',
       content: 'Content of my article.',
       date: '04/10/2022',
       author: 'Liz Gringer'
@@ -63,10 +64,23 @@ router.get('/articles', (req, res) => {
   res.end()
 })
 
+router.post('/articles', (req, res) => {
+  console.log(req.body)
+  let newArticle = new Object()
+  newArticle.id = req.body.id
+  newArticle.title = req.body.title
+  newArticle.content = req.body.content
+  newArticle.date = req.body.date
+  newArticle.author = req.body.author
+  db.articles.push(newArticle)
+  console.log("The new article has been added to the database !\n")
+  res.end()
+})
+
 function displayArticle(article, res) {
-  res.write(article['title'] + '<br>')
-  res.write(article['content'] + '<br>')
-  res.write('<br>')
+  res.write(article.title + '<br>\n')
+  res.write(article.content + '<br>\n')
+  res.write('<br>\n')
 }
 
 module.exports = router
