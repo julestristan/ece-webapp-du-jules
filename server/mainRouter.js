@@ -55,19 +55,18 @@ let db = {
   ]
 }
   
-  
 router.get('/articles', (req, res) => {
+  res.writeHead(200, {'Content-Type' : 'text/html'})
   db.articles.forEach(function(item, index, array) {
-    console.log(item['title'])
     displayArticle(item, res)
   })
   res.end()
 })
 
 function displayArticle(article, res) {
-  res.write(article['title'] + '\n')
-  res.write(article['content'] + '\n')
-  res.write('\n')
+  res.write(article['title'] + '<br>')
+  res.write(article['content'] + '<br>')
+  res.write('<br>')
 }
 
 module.exports = router
