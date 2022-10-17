@@ -77,6 +77,17 @@ router.post('/articles', (req, res) => {
   res.end()
 })
 
+router.get('/articles/:articleId', (req, res) => {
+  res.writeHead(200, {'Content-Type' : 'text/html'})
+  const targetArticle = db.articles.find(article => article.id == req.params.articleId)
+  console.log(targetArticle)
+  if(targetArticle)
+    displayArticle(targetArticle, res)
+  else
+    res.write(`Cannot find article with id : ${req.params.articleId}`)
+  res.end()
+})
+
 function displayArticle(article, res) {
   res.write(article.title + '<br>\n')
   res.write(article.content + '<br>\n')
