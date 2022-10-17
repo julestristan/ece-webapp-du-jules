@@ -6,7 +6,13 @@ const { v4: uuidv4 } = require('uuid')
 const authors = ['Thomas', 'Tristan']
 
 router.get('/', (req, res) => {
-  res.send('Welcome to the homepage !')
+  res.writeHead(200, {'Content-Type' : 'text/html'})
+  res.write('<h1>Welcome to the homepage !</h1><br>')
+  res.write('The available routes are:<br>')
+  res.write('<li><a href="http://localhost:3000/hello">Hello page</a></li>')
+  res.write('<li><a href="http://localhost:3000/about">About</a></li>')
+  res.write('<li><a href="http://localhost:3000/articles">Articles</a></li>')
+  res.end()
 })
 
 router.get('/hello', (req, res) => {
@@ -65,15 +71,13 @@ router.get('/articles', (req, res) => {
 })
 
 router.post('/articles', (req, res) => {
-  console.log(req.body)
   let newArticle = new Object()
-  newArticle.id = req.body.id
+  newArticle.id = uuidv4()
   newArticle.title = req.body.title
   newArticle.content = req.body.content
-  newArticle.date = req.body.date
+  newArticle.date = Date.now()
   newArticle.author = req.body.author
   db.articles.push(newArticle)
-  console.log("The new article has been added to the database !\n")
   res.end()
 })
 

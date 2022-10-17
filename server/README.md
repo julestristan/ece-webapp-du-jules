@@ -30,8 +30,8 @@ Voici les routes disponibles :
 
 Tester avec la console :
 ```bash
-curl POST test : curl -X POST http://localhost:3000/articles -H 'Content-Type: application/json' -d '{"id":"1", "title":"Article x", "content":"Content", "date":"04/10/2022", "author":"Thomas"}'
-curl GET test : curl -X GET http://localhost:3000/articles 
+curl -X POST http://localhost:3000/articles -H 'Content-Type: application/json' -d '{"title":"Article x", "content":"Content", "author":"Thomas"}'
+curl -X GET http://localhost:3000/articles 
 ```
 
 ## Contributeurs
