@@ -126,7 +126,7 @@ router.get('/articles/:articleId/comments', (req, res) => {
 })
 
 function displayArticleInList(article, index, res) {
-  res.write(`<h2>Article ${index + 1}</h2>`)
+  res.write(`<h2><a href="http://localhost:3000/articles/${article.id}/comments">Article ${index + 1}</a></h2>`)
   displayArticle(article, res)
 }
 
