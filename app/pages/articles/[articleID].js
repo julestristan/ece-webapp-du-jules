@@ -7,13 +7,8 @@ const Article = () => {
   const router = useRouter()
   const { articleID } = router.query
   let targetArticle = db.articles.find(article => article.id == articleID)
-  let articleData
-  if(!targetArticle){
-    articleData = "Article not found"
-  }
-  else{
-    articleData = targetArticle.title
-  }
+  let articleData = (targetArticle ? targetArticle.title : "Article not found")
+  
   return (
     <div>
       <Header title="Article"/>
