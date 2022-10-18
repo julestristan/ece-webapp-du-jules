@@ -1,10 +1,12 @@
-import Layout from "../components/layout"
+import Header from "../components/header"
+import Footer from "../components/footer"
 
 function Contacts() {
   return (
     <div>
-      <Layout title="Contacts"/>
-      <h1>Contact page</h1>
+      <Header title="Contacts"/>
+      <h1>Contacts page</h1>
+      <Footer/>
     </div>
   )
 }

@@ -1,10 +1,12 @@
-import Layout from "../components/layout"
+import Header from "../components/header"
+import Footer from "../components/footer"
 
 function Articles() {
   return (
     <div>
-      <Layout title="Articles"/>
+      <Header title="Articles"/>
       <h1>Articles page</h1>
+      <Footer/>
     </div>
   )
 }

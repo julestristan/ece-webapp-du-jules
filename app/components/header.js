@@ -1,7 +1,6 @@
-import Link from "next/link";
-import Head from "next/head";
+import Link from "next/link"
 
-const Layout = () => {
+const Header = () => {
   return <div className="p-3">
     <h3>WebApp 2022</h3>
 
@@ -12,9 +11,9 @@ const Layout = () => {
       <a style={{ marginRight: 15 }}>Articles</a>
     </Link>
     <Link href="/contacts">
-      <a>Contact</a>
+      <a>Contacts</a>
     </Link>
   </div>
 }
 
-export default Layout;
+export default Header
