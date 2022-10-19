@@ -1,7 +1,7 @@
 import Header from "../components/header"
 import Footer from "../components/footer"
 
-function Contacts() {
+export default function Contacts() {
   return (
     <div>
       <Header title="Contacts"/>
@@ -10,5 +10,3 @@ function Contacts() {
     </div>
   )
 }
-
-export default Contacts
