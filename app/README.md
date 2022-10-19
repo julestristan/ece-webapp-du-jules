@@ -8,13 +8,15 @@ Next.js
 
 ## Essayer le code
 
-Commencez par initialiser npm : 
+Commencez par initialiser npm :
+
 ```bash
 npm istall 
 npm init -y
 ```
 
 Puis :
+
 ```bash
 npm run dev
 ```
