@@ -1,7 +1,7 @@
 import Link from 'next/link'
 
 export function displayArticle(article, articleList) {
-  articleList.push(<p>ID: {article.id}</p>)
+  articleList.push(<p className='font-bold italic'>ID: {article.id}</p>)
   articleList.push(<p>Title: {article.title}</p>)
   articleList.push(<p>Content: {article.content}</p>)
 }
@@ -11,4 +11,3 @@ export default function displayArticleInList(article, index) {
   displayArticle(article, myArticle)
 return myArticle
 }
-

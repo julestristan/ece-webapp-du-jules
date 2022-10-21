@@ -21,7 +21,7 @@ Puis :
 npm run dev
 ```
 
-Accedez à la page d'accueil via : http://localhost:3000/
+Accedez à la page d'accueil via : <http://localhost:3000/>
 
 ## Contributeurs
 

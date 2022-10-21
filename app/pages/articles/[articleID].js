@@ -1,7 +1,5 @@
 import { useRouter } from 'next/router'
 import db from "../database"
-import Header from "../../components/header"
-import Footer from "../../components/footer"
 
 const Article = () => {
   const router = useRouter()
@@ -18,12 +16,10 @@ const Article = () => {
 
   return (
     <div>
-      <Header title="Article"/>
       <h1>Article with ID: {articleID}</h1>
       {articleData}
       <h1>Comments:</h1>
       {commentList}
-      <Footer/>
     </div>
   )
 }

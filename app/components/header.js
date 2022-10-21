@@ -1,18 +1,6 @@
-import Link from "next/link"
-
 const Header = () => {
-  return <div className="p-3">
-    <h3>WebApp 2022</h3>
-
-    <Link href="/">
-      <a style={{ marginRight: 15 }}>Home</a>
-    </Link>
-    <Link href="/articles">
-      <a style={{ marginRight: 15 }}>Articles</a>
-    </Link>
-    <Link href="/contacts">
-      <a>Contacts</a>
-    </Link>
+  return <div className="place-content-stretch bg-yellow-200">
+    <h3 className="wt-title bg-pink-600 flex justify-center">WebApp 2022</h3>
   </div>
 }
 
