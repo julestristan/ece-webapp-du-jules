@@ -1,7 +1,7 @@
 import Link from "next/link"
 
 const NavBar = () => {
-  return <ul className="flex flex-row justify-center">
+  return <ul className="flex flex-row justify-center bg bg-green-100">
     {[
       ['Home', '/'],
       ['About', '/about'],

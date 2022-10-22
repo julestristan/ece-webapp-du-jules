@@ -7,7 +7,7 @@ export default function Layout({ children }) {
     <>
       <Header />
       <NavBar />
-      <main>{children}</main>
+      <main className="bg-orange-300">{children}</main>
       <Footer />
     </>
   )

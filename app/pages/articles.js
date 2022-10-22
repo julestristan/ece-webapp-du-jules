@@ -4,13 +4,13 @@ import displayArticleInList from "./functions"
 function Articles() {
   let articleList = []
   db.articles.forEach(function(article, index) {
-    articleList.push(displayArticleInList(article, index))
+    articleList.push(<li>{displayArticleInList(article, index)}</li>)
   })
 
   return (
     <div>
       <h1>Articles page</h1>
-      {articleList}
+      <ul>{articleList}</ul>
     </div>
   )
 }
