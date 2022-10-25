@@ -24,13 +24,13 @@ Puis :
 npm run develop
 ```
 
-Accedez à la page d'accueil via : http://localhost:3000/
+Accedez à la page d'accueil via : <http://localhost:3000/>
 
 Voici les routes disponibles :
 
-- http://localhost:3000/hello/ + *nom*
-- http://localhost:3000/about
-- http://localhost:3000/articles
+- <http://localhost:3000/hello/> + *nom*
+- <http://localhost:3000/about>
+- <http://localhost:3000/articles>
 
 ## Test
 
