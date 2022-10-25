@@ -16,9 +16,9 @@ const Article = () => {
   })
 
   return (
-    <div>
-      <h1 className='text-3xl'>Article with ID: {articleID}</h1>
-      <div className='bg-red-300'>{articleData}</div>
+    <div className='p-5 bg-red-300 rounded-2xl'>
+      <h1 className='wt-title'>Article with ID: {articleID}</h1>
+      <div>{articleData}</div>
       <h1 className='text-3xl'>Comments:</h1>
       {commentList}
     </div>

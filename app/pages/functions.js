@@ -8,7 +8,7 @@ export function displayArticle(article, articleList) {
 }
 export default function displayArticleInList(article, index) {
   let myArticle = []
-  myArticle.push(<h2 className="text-3xl font-bold underline"><Link href={`/articles/${article.id}`}><a>Article {index + 1}</a></Link></h2>)
+  myArticle.push(<h2 className="text-2xl font-bold underline"><Link href={`/articles/${article.id}`}><a>Article {index + 1}</a></Link></h2>)
   displayArticle(article, myArticle)
 return myArticle
 }

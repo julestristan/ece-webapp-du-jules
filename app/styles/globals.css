@@ -3,9 +3,5 @@
 @tailwind utilities;
 
 .wt-title {
-  @apply text-3xl font-bold underline mb-10
-}
-
-.body {
-  @apply bg-slate-700
+  @apply text-3xl font-bold underline mb-10 flex justify-center
 }

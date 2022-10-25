@@ -14,6 +14,27 @@ let db = {
           date: '04/10/2022',
           author: 'Liz Gringer'
         },
+        {
+          id: '3',
+          title: 'Article 3',
+          content: 'Content of the article 3.',
+          date: '04/10/2022',
+          author: 'Liz Gringer'
+        },
+        {
+          id: '4',
+          title: 'Article 4',
+          content: 'Content of the article 4.',
+          date: '04/10/2022',
+          author: 'Liz Gringer'
+        },
+        {
+          id: '5',
+          title: 'Article 5',
+          content: 'Content of the article 5.',
+          date: '04/10/2022',
+          author: 'Liz Gringer'
+        },
       // ...
     ],
     comments: [

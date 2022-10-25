@@ -1,7 +1,7 @@
-function Footer() {
+function Footer({footerStyle}) {
   return (
-    <div>
-      By Du Thomas and Jules Tristan
+    <div className={footerStyle}>
+      <p>By Du Thomas and Jules Tristan</p>
     </div>
   )
 }
