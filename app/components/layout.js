@@ -9,7 +9,7 @@ export default function Layout({ children }) {
             flex justify-center items-center
             text-white text-2xl'/>
 
-      <NavBar navBarStyle='flex flex-row bg-green-100 flex justify-center items-center fixed right-0 top-1 rounded-l-lg bg-transparent'/>
+      <NavBar navBarStyle='flex flex-row bg-green-100 flex justify-center items-center sticky top-0 rounded-l-lg bg-transparent'/>
 
       <main className='flex justify-center items-center p-5 bg-slate-400 h-screen'>{children}</main>
 
