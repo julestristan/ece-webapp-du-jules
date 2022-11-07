@@ -1,10 +1,16 @@
-# Webapp 2022
+# App
 
-Repository du projet Webtech 2022
+Partie **app** du projet Webtech 2022
 
 ## Prérequis
 
 Next.js
+
+Assurez-vous d'être dans le dossier */app* :
+
+```bash
+cd ./app
+```
 
 ## Essayer le code
 

@@ -1,6 +1,6 @@
-# Webapp 2022
+# Server
 
-Repository du projet Webtech 2022
+Partie **server** du projet Webtech 2022
 
 ## Prérequis
 
@@ -8,6 +8,12 @@ Express :
 
 ```bash
 npm install express
+```
+
+Assurez-vous d'être dans le dossier */server* :
+
+```bash
+cd ./server
 ```
 
 ## Essayer le code

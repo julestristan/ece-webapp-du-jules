@@ -2,44 +2,13 @@
 
 Repository du projet Webtech 2022
 
-## Prérequis
+## Server
 
-Express :
+Pour la partie server dirigez-vous vers <./server>
 
-```bash
-npm install express
-```
+## App
 
-## Essayer le code
-
-Commencez par initialiser npm :
-
-```bash
-npm init -y
-```
-
-Puis :
-
-```bash
-npm run develop
-```
-
-Accedez à la page d'accueil via : <http://localhost:3000/>
-
-Voici les routes disponibles :
-
-- <http://localhost:3000/hello/> + *nom*
-- <http://localhost:3000/about>
-- <http://localhost:3000/articles>
-
-## Test
-
-Tester avec la console :
-
-```bash
-curl -X POST http://localhost:3000/articles -H 'Content-Type: application/json' -d '{"title":"Article x", "content":"Content", "author":"Thomas"}'
-curl -X GET http://localhost:3000/articles 
-```
+Pour la partie app dirigez-vous vers <./app>
 
 ## Contributeurs
 
