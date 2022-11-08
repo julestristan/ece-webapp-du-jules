@@ -11,7 +11,7 @@ export default function Layout({ children }) {
 
       <NavBar navBarStyle='flex flex-row bg-green-100 flex justify-center items-center sticky top-0 rounded-l-lg bg-transparent'/>
 
-      <main className='flex justify-center items-center p-5 bg-slate-400 h-screen'>{children}</main>
+      <main className='flex justify-center p-5 bg-slate-400 h-screen'>{children}</main>
 
       <Footer footerStyle='w-full bg-indigo-600 p-3
             fixed left-0 bottom-0

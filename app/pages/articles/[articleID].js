@@ -16,11 +16,11 @@ const Article = () => {
   })
 
   return (
-    <div className='p-5 bg-red-300 rounded-2xl'>
+    <div className='p-5 bg-red-300 rounded-2xl w-96'>
       <h1 className='wt-title'>Article with ID: {articleID}</h1>
       <div>{articleData}</div>
       <h1 className='text-3xl'>Comments:</h1>
-      {commentList}
+      <div>{commentList}</div>
     </div>
   )
 }

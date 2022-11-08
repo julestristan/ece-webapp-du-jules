@@ -4,7 +4,7 @@ import displayArticleInList from "./functions"
 function Articles() {
   let articleList = []
   db.articles.forEach(function(article, index) {
-    articleList.push(<li className="mx-8 bg-red-300 p-5 m-2 w-1/4 rounded-lg">{displayArticleInList(article, index)}</li>)
+    articleList.push(<li className="mx-8 bg-red-300 p-5 m-2 w-96 rounded-lg">{displayArticleInList(article, index)}</li>)
   })
 
   return (
