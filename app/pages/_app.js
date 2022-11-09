@@ -4,7 +4,7 @@ import Layout from '../Layout/layout'
 function MyApp({ Component, pageProps }) {
   return (
     <Layout>
-      <Component {...pageProps} />
+      <Component {...pageProps} className='mb-auto flex justify-center p-5 bg-slate-400'/>
     </Layout>
     
   )
