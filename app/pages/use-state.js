@@ -1,7 +1,12 @@
-export default function Usestate() {
+import React, { useState } from 'react';
+export default function LoginNative() {
+    const[count, setCount] = useState(0);
     return (
       <div>
-        <h1 className="wt-title">use-state</h1>
-      </div>
+        <p>You clicked {count} times</p>
+        <button onClick={() => setCount(count + 1)}>
+         Click me
+        </button>
+     </div>
     )
   }
