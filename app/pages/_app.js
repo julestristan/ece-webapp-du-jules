@@ -1,5 +1,5 @@
 import '../styles/globals.css'
-import Layout from '../Layout/layout'
+import Layout from '../components/Layout/index'
 import '../styles/loginform.css'
 
 function MyApp({ Component, pageProps }) {
