@@ -9,7 +9,7 @@ const NavBar = ({navBarStyle}) => {
       ['Articles', '/articles'],
       ['FetchingTest', '/fetchingTest'],
       ['Usestate', '/use-state'],
-      ['LoginNative', 'login-native']
+      ['LoginNative', '/login-native']
     ].map(([title, url]) => (
       <div key={url}>
         <li className="m-3">
