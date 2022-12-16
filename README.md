@@ -32,7 +32,7 @@
 
   ```bash
   cd supabase
-  docker compose up ...
+  docker compose up
   ```
 
 ## Authors

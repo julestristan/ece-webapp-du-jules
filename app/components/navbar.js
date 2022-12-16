@@ -44,6 +44,11 @@ const NavBar = ({navBarStyle}) => {
           <a className={"rounded-lg px-3 py-2 text-slate-700 font-medium hover:bg-red-600 bg-red-400 hover:text-slate-900"}>Articles</a>
         </Link>
       </li>
+      <li className="m-3">
+        <Link href={'/login'}>
+          <a className={"rounded-lg px-3 py-2 text-slate-700 font-medium hover:bg-red-600 bg-red-500 hover:text-slate-900"}>Login</a>
+        </Link>
+      </li>
   </ul>
 }
 
