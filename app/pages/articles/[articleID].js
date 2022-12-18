@@ -1,9 +1,23 @@
 import { useRouter } from 'next/router'
 import { db } from "../database"
+import { useSupabaseClient } from '@supabase/auth-helpers-react'
 
 const Article = () => {
   const router = useRouter()
   const { articleID } = router.query
+
+  const [contact, setContact] = useState(null)
+  const supabase = useSupabaseClient()
+  useEffect(() => {
+    (async () => {
+      let { data, error, status } = await supabase
+        .from('contacts')
+        .select(`title, content`)
+        .eq('id', id)
+        .single()
+      setContact(data)
+    })()
+  }, [id, supabase])
 
   let targetArticle = db.articles.find(article => article.id == articleID)
   let articleData = (targetArticle ? getArticleAtributes(targetArticle) : "Article not found")
