@@ -63,4 +63,4 @@ let db = {
     ]
   }
 
-  export default db
+  export { db }

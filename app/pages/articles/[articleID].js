@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router'
-import db from "../database"
+import { db } from "../database"
 
 const Article = () => {
   const router = useRouter()

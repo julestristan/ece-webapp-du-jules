@@ -1,5 +1,5 @@
-import db from "./database.js"
-import displayArticleInList from "./functions"
+import { db } from "../database.js"
+import displayArticleInList from "../functions"
 
 function Articles() {
   let articleList = []

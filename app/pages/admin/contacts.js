@@ -55,7 +55,8 @@ export default function Contacts() {
                         className={"w-5 h-5 block bg-slate-200 hover:bg-blue-500 hover:text-white rounded-full"}
                         href={`/admin/contacts/${contact.id}`}
                       >
-                        {/* <ChevronRightIcon className="h-5 w-5 " aria-hidden="true" /> */}\>
+                        {/* <ChevronRightIcon className="h-5 w-5 " aria-hidden="true" /> */}
+                        {'>'}
                       </Link>
                     </td>
                   </tr>
