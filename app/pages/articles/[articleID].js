@@ -52,15 +52,15 @@ const Article = () => {
   // })
 
   return (
-    <div>
+    <div className='min-w-full'>
       <div className='p-5 bg-red-300 rounded-2xl'>
         <h1 className='wt-title'>{articleData.title}</h1>
         <div>{articleData.content}</div>
         {/* <h1 className='text-3xl'>Comments:</h1>
         {commentList} */}
       </div>
-      <div className='flex justify-end gap-2 p-2'>
-        <Link href={'/articles/createArticle'}>
+      <div className='flex justify-between gap-2 p-2'>
+        <Link href={`/editArticle/${articleID}`}>
           <a className={"rounded-lg px-3 py-2 text-slate-700 font-medium hover:bg-blue-600 bg-blue-400 hover:text-slate-900"}>Edit</a>
         </Link>
         <button 
