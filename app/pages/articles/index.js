@@ -24,17 +24,17 @@ export default function Articles() {
       <h1 className='wt-title'>
         Article list
       </h1>
-      <div className="not-prose -my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
+      {/* <div className="not-prose -my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
         <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
           <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
             <table className="min-w-full divide-y divide-slate-300">
               <thead className="bg-slate-50">
                 <tr>
                   <th scope="col" className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-slate-900 sm:pl-6">
-                    title
+                    Title
                   </th>
                   <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-slate-900">
-                    content
+                    Content
                   </th>
                   <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-slate-900">
                   </th>
@@ -59,7 +59,28 @@ export default function Articles() {
             </table>
           </div>
         </div>
+      </div> */}
+      <div className="mx-auto max-w-2xl py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
+        <div className="grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
+          {articles.map((article) => (
+            <Article key={article.id} articleData={article} />
+          ))}
+        </div>
       </div>
+      <Link href={'/articles/createArticle'}>
+        <a className={"rounded-lg px-3 py-2 text-slate-700 font-medium hover:bg-blue-600 bg-blue-400 hover:text-slate-900"}>Create new article</a>
+      </Link>
     </div>
+  )
+}
+
+function Article({articleData}){
+  return(
+    <Link href={`/articles/${articleData.id}`}>
+      <div className='rounded-lg hover:bg-blue-500 bg-blue-400 p-2'>
+        <div className='flex justify-center m-2 font-bold'>{articleData.title}</div>
+        <div className='bg-blue-600 p-1'>{articleData.content}</div>
+      </div>
+    </Link>
   )
 }
