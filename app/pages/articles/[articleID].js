@@ -57,24 +57,12 @@ const Article = () => {
     }
   }
 
-  // let targetArticle = db.articles.find(article => article.id == articleID)
-  // let articleData = (targetArticle ? getArticleAtributes(targetArticle) : "Article not found")
-  // let commentList = []
-  // db.comments.forEach(function(comment) {
-  //   if(comment.articleId == articleID){
-  //     commentList.push(<h3>{comment.author}</h3>)
-  //     commentList.push(<p>{comment.content}</p>)
-  //   } 
-  // })
-
   return (
     <div className='min-w-full flex flex-col gap-2'>
 
       <div className='p-5 bg-red-300 rounded-2xl'>
         <h1 className='wt-title'>{articleData.title}</h1>
         <div>{articleData.content}</div>
-        {/* <h1 className='text-3xl'>Comments:</h1>
-        {commentList} */}
       </div>
 
       <div className='flex gap-2'>
@@ -123,10 +111,34 @@ export async function getServerSideProps(context) {
 }
 
 function Comment({comment}){
+  const router = useRouter()
+  const supabase = useSupabaseClient()
+
+  const deleteComment = async (commentID) => {
+    try{
+      const { data, error } = await supabase
+        .from("comments")
+        .delete()
+        .eq('id', commentID)
+      if(error) throw error
+      router.push(`/articles/${comment.articleID}`)
+    } catch (error) {
+      alert(error.message)
+    }
+  }
+  
   return(
-    <div className='p-4 bg-red-400 rounded-2xl'>
-      <div>{comment.author} :</div>
-      <div className='ml-4'>{comment.message}</div>
+    <div className='p-4 bg-red-400 rounded-2xl flex'>
+      <div className='flex-1'>
+        <div>{comment.author} :</div>
+        <div className='ml-4'>{comment.message}</div>
+      </div>
+      <button 
+          className={"rounded-lg px-3 py-2 text-slate-700 font-medium hover:bg-red-600 bg-red-500 hover:text-slate-900"}
+          onClick={() => deleteComment(comment.id)}
+        >
+          Delete
+        </button>
     </div>
   )
 }

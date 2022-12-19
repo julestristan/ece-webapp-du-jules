@@ -65,8 +65,8 @@ const EditArticle = () => {
         <h1 className="text-center">Edit article</h1>
         <div className="bg-blue-300 flex flex-col p-2">
           <form className="flex flex-col gap-2" onSubmit={handleSubmit}>
-              <input name="title" placeholder="Enter title" onChange={handleChange} value={articleData.title} required />
-              <textarea name="content" placeholder="Enter content" onChange={handleChange} value={articleData.content} required />
+              <input className="rounded-lg p-2" name="title" placeholder="Enter title" onChange={handleChange} value={articleData.title} required />
+              <textarea className="rounded-lg p-2" name="content" placeholder="Enter content" onChange={handleChange} value={articleData.content} required />
               <button type="submit">Update</button>
           </form>
         </div>
