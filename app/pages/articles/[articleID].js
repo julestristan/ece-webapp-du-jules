@@ -19,8 +19,6 @@ const Article = () => {
     setComment({ ...comment, [e.target.name]: e.target.value })
   }
 
-  console.log(comment)
-
   useEffect(() => {
     async function getArticle() {
       const { data, error } = await supabase
@@ -56,6 +54,7 @@ const Article = () => {
   }, [articleID])
 
   const deleteArticle = async () => {
+    deleteComments()
     try{
       const { data, error } = await supabase
         .from("articles")
@@ -63,6 +62,18 @@ const Article = () => {
         .eq('id', articleID)
       if(error) throw error
       router.push('/articles')
+    } catch (error) {
+      alert(error.message)
+    }
+  }
+
+  const deleteComments = async () => {
+    try{
+      const { data, error } = await supabase
+        .from("comments")
+        .delete()
+        .eq('articleID', articleID)
+      if(error) throw error
     } catch (error) {
       alert(error.message)
     }
@@ -140,7 +151,7 @@ const Article = () => {
       </div>
       <div className='p-5 bg-blue-300 rounded-2xl flex flex-col gap-4'>
         <div>Write comment :</div>
-        <textarea className="rounded-lg p-2" name="message" placeholder="Write comment" onChange={handleChange} value={comment.message} required />
+        <textarea className="rounded-lg p-2" name="message" placeholder="Comment" onChange={handleChange} value={comment.message}/>
         <button 
           className={"rounded-lg px-3 py-2 text-slate-700 font-medium hover:bg-blue-600 bg-blue-500 hover:text-slate-900"}
           onClick={() => sendComment()}>
@@ -180,9 +191,9 @@ function Comment({comment}){
   
   return(
     <div className='p-4 bg-red-400 rounded-2xl flex'>
-      <div className='flex-1'>
+      <div className='flex-1 w-3/4 h-20 bg-red-700'>
         <div>{comment.author} :</div>
-        <div className='ml-4'>{comment.message}</div>
+        <p className='ml-4 break-normal'>{comment.message}</p>
       </div>
       <button 
         className={"rounded-lg px-3 py-2 text-slate-700 font-medium hover:bg-red-600 bg-red-500 hover:text-slate-900"}

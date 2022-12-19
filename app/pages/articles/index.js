@@ -25,8 +25,8 @@ export default function Articles() {
         Article list
       </h1>
       
-      <div className="mx-auto max-w-2xl py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
-        <div className="grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
+      <div className="mx-auto max-w-2xl py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8 bg-blue-300">
+        <div className="grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8 bg-blue-500">
           {articles.map((article) => (
             <Article key={article.id} articleData={article} />
           ))}
@@ -43,8 +43,8 @@ function Article({articleData}){
   return(
     <Link href={`/articles/${articleData.id}`}>
       <div className='rounded-lg hover:bg-blue-500 bg-blue-400 p-2'>
-        <div className='flex justify-center m-2 font-bold'>{articleData.title}</div>
-        <div className='bg-blue-600 p-1'>{articleData.content}</div>
+        <div className='m-2 font-bold truncate'>{articleData.title}</div>
+        <div className='bg-blue-600 p-1 truncate'>{articleData.content}</div>
       </div>
     </Link>
   )
