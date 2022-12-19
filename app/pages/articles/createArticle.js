@@ -2,10 +2,7 @@ import { SupabaseClient } from "@supabase/supabase-js"
 import { useSupabaseClient } from '@supabase/auth-helpers-react'
 import { useRouter } from 'next/router'
 import React from "react"
-// import axios from "axios";
 import { useState } from 'react'
-
-
 
 const CreateArticle = () => {
   const router = useRouter()
@@ -20,8 +17,6 @@ const CreateArticle = () => {
   function handleChange(e) {
     setArticleData({ ...articleData, [e.target.name]: e.target.value })
   }
-
-  console.log(articleData)
   
   async function handleSubmit(e) {
     e.preventDefault()
@@ -50,7 +45,17 @@ const CreateArticle = () => {
           <form className="flex flex-col gap-2" onSubmit={handleSubmit}>
             <input className="rounded-lg p-2" name="title" placeholder="Enter title" onChange={handleChange} value={articleData.title} required />
             <textarea className="rounded-lg p-2" name="content" placeholder="Enter content" onChange={handleChange} value={articleData.content} required />
-            <button type="submit">Create</button>
+            <div className="flex gap-2">
+              <button className="rounded-lg px-3 py-2 text-slate-700 font-medium hover:bg-blue-600 bg-blue-500 hover:text-slate-900"
+                type="submit">
+                Create
+              </button>
+              <button 
+                className="rounded-lg px-3 py-2 text-slate-700 font-medium hover:bg-red-600 bg-red-500 hover:text-slate-900"
+                onClick={() => router.push('/articles')}>
+                Cancel
+              </button>
+            </div>
           </form>
         </div>
       </div>
