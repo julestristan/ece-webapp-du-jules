@@ -20,10 +20,11 @@ const CreateArticle = () => {
   function handleChange(e) {
     setArticleData({ ...articleData, [e.target.name]: e.target.value })
   }
+
+  console.log(articleData)
   
   async function handleSubmit(e) {
     e.preventDefault()
-    console.log(articleData)
     try{
       const { data, error } = await supabase
         .from("articles")
@@ -47,9 +48,9 @@ const CreateArticle = () => {
         <h1 className="text-center">Create new article</h1>
         <div className="bg-blue-300 flex flex-col p-2">
           <form className="flex flex-col gap-2" onSubmit={handleSubmit}>
-              <input className="rounded-lg p-2" name="title" placeholder="Enter title" onChange={handleChange} value={articleData.title} required />
-              <textarea className="rounded-lg p-2" name="content" placeholder="Enter content" onChange={handleChange} value={articleData.content} required />
-              <button type="submit">Create</button>
+            <input className="rounded-lg p-2" name="title" placeholder="Enter title" onChange={handleChange} value={articleData.title} required />
+            <textarea className="rounded-lg p-2" name="content" placeholder="Enter content" onChange={handleChange} value={articleData.content} required />
+            <button type="submit">Create</button>
           </form>
         </div>
       </div>
