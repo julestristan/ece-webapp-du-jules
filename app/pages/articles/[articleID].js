@@ -1,9 +1,10 @@
 import { useRouter } from 'next/router'
-import { useSupabaseClient } from '@supabase/auth-helpers-react'
+import { useUser, useSupabaseClient } from '@supabase/auth-helpers-react'
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 
 const Article = () => {
+  const user = useUser()
   const router = useRouter()
   const { articleID } = router.query
   const supabase = useSupabaseClient()
@@ -23,7 +24,7 @@ const Article = () => {
     async function getArticle() {
       const { data, error } = await supabase
         .from('articles')
-        .select(`title, content`)
+        .select(`title, content, author`)
         .eq('id', articleID)
         .single()
       if(error){
@@ -37,8 +38,8 @@ const Article = () => {
     async function getComments() {
       const { data, error } = await supabase
         .from('comments')
-        .select(`id, author, message, articleID`)
-        .eq('articleID', articleID)
+        .select(`id, author, message, article_id`)
+        .eq('article_id', articleID)
       if(error){
         console.log(error)
       }
@@ -72,7 +73,7 @@ const Article = () => {
       const { data, error } = await supabase
         .from("comments")
         .delete()
-        .eq('articleID', articleID)
+        .eq('article_id', articleID)
       if(error) throw error
     } catch (error) {
       alert(error.message)
@@ -88,7 +89,7 @@ const Article = () => {
           {
             author: "Thomas",
             message: comment.message,
-            articleID: articleID
+            article_id: articleID
           }
         ])
         .single()
@@ -106,9 +107,9 @@ const Article = () => {
         .from("comments")
         .insert([
           {
-            author: "Thomas",
+            author: user.id,
             message: comment.message,
-            articleID: articleID
+            article_id: articleID
           }
         ])
         .single()
@@ -130,17 +131,19 @@ const Article = () => {
         <div>
           {articleData.content}
         </div>
-        <div className='flex gap-2'>
-          <Link href={`/editArticle/${articleID}`}>
-            <a className={"rounded-lg px-3 py-2 text-slate-700 font-medium hover:bg-blue-600 bg-blue-400 hover:text-slate-900"}>Edit</a>
-          </Link>
-          <button 
-            className={"rounded-lg px-3 py-2 text-slate-700 font-medium hover:bg-red-600 bg-red-400 hover:text-slate-900"}
-            onClick={() => deleteArticle()}
-          >
-            Delete
-          </button>
-        </div>
+        {user?.id == articleData.author ?
+          <div className='flex gap-2'>
+            <Link href={`/editArticle/${articleID}`}>
+              <a className={"rounded-lg px-3 py-2 text-slate-700 font-medium hover:bg-blue-600 bg-blue-400 hover:text-slate-900"}>Edit</a>
+            </Link>
+            <button 
+              className={"rounded-lg px-3 py-2 text-slate-700 font-medium hover:bg-red-600 bg-red-400 hover:text-slate-900"}
+              onClick={() => deleteArticle()}
+            >
+              Delete
+            </button>
+          </div>
+        : null}
       </div>
 
       <div className='p-5 bg-red-300 rounded-2xl flex flex-col gap-2'>
@@ -149,15 +152,18 @@ const Article = () => {
             <Comment key={comment.id} comment={comment} />
           ))}
       </div>
-      <div className='p-5 bg-blue-300 rounded-2xl flex flex-col gap-4'>
-        <div>Write comment :</div>
-        <textarea className="rounded-lg p-2" name="message" placeholder="Comment" onChange={handleChange} value={comment.message}/>
-        <button 
-          className={"rounded-lg px-3 py-2 text-slate-700 font-medium hover:bg-blue-600 bg-blue-500 hover:text-slate-900"}
-          onClick={() => sendComment()}>
-          Send
-        </button>
-      </div>
+
+      {user?
+        <div className='p-5 bg-blue-300 rounded-2xl flex flex-col gap-4'>
+          <div>Write comment :</div>
+          <textarea className="rounded-lg p-2" name="message" placeholder="Comment" onChange={handleChange} value={comment.message}/>
+          <button 
+            className={"rounded-lg px-3 py-2 text-slate-700 font-medium hover:bg-blue-600 bg-blue-500 hover:text-slate-900"}
+            onClick={() => sendComment()}>
+            Send
+          </button>
+        </div>
+      : null}
     </div>
   )
 }
@@ -175,6 +181,7 @@ export async function getServerSideProps(context) {
 function Comment({comment}){
   const router = useRouter()
   const supabase = useSupabaseClient()
+  const user = useUser()
 
   const deleteComment = async (commentID) => {
     try{
@@ -191,16 +198,19 @@ function Comment({comment}){
   
   return(
     <div className='p-4 bg-red-400 rounded-2xl flex'>
-      <div className='flex-1 w-3/4 h-20 bg-red-700'>
+      <div className='flex-1 w-3/4'>
         <div>{comment.author} :</div>
         <p className='ml-4 break-normal'>{comment.message}</p>
       </div>
-      <button 
+      {user?.id == comment.author ?
+        <button 
         className={"rounded-lg px-3 py-2 text-slate-700 font-medium hover:bg-red-600 bg-red-500 hover:text-slate-900"}
         onClick={() => deleteComment(comment.id)}
-      >
-        Delete
-      </button>
+        >
+          Delete
+        </button>
+      : null}
+      
     </div>
   )
 }

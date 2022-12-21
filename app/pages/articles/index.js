@@ -1,11 +1,13 @@
 import { useState, useEffect } from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
-import { useSupabaseClient } from '@supabase/auth-helpers-react'
+import { useUser, useSupabaseClient } from '@supabase/auth-helpers-react'
 
 export default function Articles() {
   const [articles, setArticles] = useState([])
   const supabase = useSupabaseClient()
+  const user = useUser()
+
   useEffect(() => {
     (async () => {
       let { data, error, status } = await supabase
@@ -30,11 +32,15 @@ export default function Articles() {
           {articles.map((article) => (
             <Article key={article.id} articleData={article} />
           ))}
-          <div className='rounded-lg hover:bg-blue-500 bg-blue-400 p-2 flex items-center justify-center'>
+          {user?
             <Link href={'/articles/createArticle'}>
-              <a className='font-bold text-xl'> + Create new article</a>
+              <div className='rounded-lg hover:bg-blue-500 bg-blue-400 p-2 flex items-center justify-center'>
+                <a className='font-bold text-xl'> + Create new article</a>
+              </div>
             </Link>
-          </div>
+          : null}
+          
+
           
         </div>
       </div>

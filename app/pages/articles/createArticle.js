@@ -1,5 +1,6 @@
 import { SupabaseClient } from "@supabase/supabase-js"
-import { useSupabaseClient } from '@supabase/auth-helpers-react'
+import { useUser, useSupabaseClient } from "@supabase/auth-helpers-react"
+import { withPageAuth } from "@supabase/auth-helpers-nextjs"
 import { useRouter } from 'next/router'
 import React from "react"
 import { useState } from 'react'
@@ -10,7 +11,7 @@ const CreateArticle = () => {
     title: "",
     content: ""
   }
-
+  const user = useUser()
   const supabase = useSupabaseClient()
   const [articleData, setArticleData] = useState(initialState)
 
@@ -26,7 +27,8 @@ const CreateArticle = () => {
         .insert([
           {
             title: articleData.title,
-            content: articleData.content
+            content: articleData.content,
+            author: user.id
           }
         ])
         .single()
@@ -65,3 +67,5 @@ const CreateArticle = () => {
 }
 
 export default CreateArticle
+
+export const getServerSideProps = withPageAuth({ redirectTo: '/login'})

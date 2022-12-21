@@ -9,11 +9,11 @@ export default function MyApp({ Component, pageProps }) {
 
   const [supabase] = useState(() => createBrowserSupabaseClient())
   return (
-    <Layout>
-      <SessionContextProvider supabaseClient={supabase} initialSession={pageProps.initialSession}>
+    <SessionContextProvider supabaseClient={supabase} initialSession={pageProps.initialSession}>
+      <Layout>
         <Component {...pageProps} />
-      </SessionContextProvider>
-    </Layout>
+      </Layout>
+    </SessionContextProvider>
     
   )
 }

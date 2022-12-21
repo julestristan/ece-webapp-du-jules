@@ -20,36 +20,63 @@
 
 // export default NavBar
 
+import { useUser, useSupabaseClient } from "@supabase/auth-helpers-react"
 import Link from "next/link"
+import { useRouter } from "next/router"
+
 
 const NavBar = ({navBarStyle}) => {
-  return <ul className={navBarStyle}>
-      <li className="m-3">
-        <Link href={'/'}>
-          <a className={"rounded-lg px-3 py-2 text-slate-700 font-medium hover:bg-red-600 bg-red-400 hover:text-slate-900"}>Home</a>
-        </Link>
-      </li>
-      <li className="m-3">
-        <Link href={'/about'}>
-          <a className={"rounded-lg px-3 py-2 text-slate-700 font-medium hover:bg-red-600 bg-red-400 hover:text-slate-900"}>About</a>
-        </Link>
-      </li>
-      <li className="m-3">
-        <Link href={'/contacts'}>
-          <a className={"rounded-lg px-3 py-2 text-slate-700 font-medium hover:bg-red-600 bg-red-400 hover:text-slate-900"}>Contacts</a>
-        </Link>
-      </li>
-      <li className="m-3">
-        <Link href={'/articles'}>
-          <a className={"rounded-lg px-3 py-2 text-slate-700 font-medium hover:bg-red-600 bg-red-400 hover:text-slate-900"}>Articles</a>
-        </Link>
-      </li>
-      <li className="m-3">
-        <Link href={'/login'}>
-          <a className={"rounded-lg px-3 py-2 text-slate-700 font-medium hover:bg-red-600 bg-red-500 hover:text-slate-900"}>Login</a>
-        </Link>
-      </li>
-  </ul>
+  const supabaseClient = useSupabaseClient()
+  const user = useUser()
+  const router = useRouter()
+
+  function signout(){
+    supabaseClient.auth.signOut()
+    router.push('/')
+  }
+
+  if(user)console.log(user)
+  return (
+    <div className={navBarStyle}>
+      <div className="flex gap-2 m-2">
+        <div className="navBarLink">
+          <Link href={'/'}>
+            <a>Home</a>
+          </Link>
+        </div>
+        <div className="navBarLink">
+          <Link href={'/about'}>
+            <a>About</a>
+          </Link>
+        </div>
+        <div className="navBarLink">
+          <Link href={'/contacts'}>
+            <a>Contacts</a>
+          </Link>
+        </div>
+        <div className="navBarLink">
+          <Link href={'/articles'}>
+            <a>Articles</a>
+          </Link>
+        </div>
+      </div>
+      <div className="flex gap-2 m-2 items-center">
+        {user ? <div>Hello {user.email}</div> : null}
+        <div className="navBarLink">
+          {user ?
+            <button onClick={() => signout()}>
+              Logout
+            </button>
+          :
+            <Link href={'/login'}>
+              <a >Login</a>
+            </Link>
+          }
+        </div>
+
+      </div>
+    </div>
+  )
 }
 
 export default NavBar
