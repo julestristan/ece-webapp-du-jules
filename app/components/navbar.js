@@ -39,40 +39,34 @@ const NavBar = ({navBarStyle}) => {
   return (
     <div className={navBarStyle}>
       <div className="flex gap-2 m-2">
-        <div className="navBarLink">
-          <Link href={'/'}>
-            <a>Home</a>
+        {[
+          ['Home', '/'],
+          ['About', '/about'],
+          ['Contacts', '/contacts'],
+          ['Articles', '/articles']
+        ].map(([title, url]) => (
+          <Link href={url} key={url}>
+            <a className="navBarLink">{title}</a>
           </Link>
-        </div>
-        <div className="navBarLink">
-          <Link href={'/about'}>
-            <a>About</a>
-          </Link>
-        </div>
-        <div className="navBarLink">
-          <Link href={'/contacts'}>
-            <a>Contacts</a>
-          </Link>
-        </div>
-        <div className="navBarLink">
-          <Link href={'/articles'}>
-            <a>Articles</a>
-          </Link>
-        </div>
+        ))
+        }
       </div>
       <div className="flex gap-2 m-2 items-center">
         {user ? <div>Hello {user.email}</div> : null}
-        <div className="navBarLink">
           {user ?
-            <button onClick={() => signout()}>
-              Logout
-            </button>
+            <div className="flex flex-row gap-2">
+              <Link href={'/profile'}>
+                <a className="navBarLink">Profile</a>
+              </Link>
+              <button className="navBarLink" onClick={() => signout()}>
+                Logout
+              </button>
+            </div>
           :
             <Link href={'/login'}>
-              <a >Login</a>
+              <a className="navBarLink">Login</a>
             </Link>
           }
-        </div>
 
       </div>
     </div>
