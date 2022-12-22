@@ -8,9 +8,23 @@ create table profiles (
   id uuid references auth.users not null primary key,
   updated_at timestamp with time zone,
   username text unique,
-  full_name text,
+  firstname text,
+  lastname text,
+  email text unique,
   avatar_url text,
-  website text,
+
+  constraint username_length check (char_length(username) >= 3)
+);
+
+-- Create a table for public profiles
+create table profiles (
+  id uuid references auth.users on delete cascade not null primary key,
+  updated_at timestamp with time zone,
+  username text unique,
+  firstname text,
+  lastname text,
+  email text unique,
+  avatar_url text,
 
   constraint username_length check (char_length(username) >= 3)
 );
@@ -33,8 +47,8 @@ create policy "Users can update own profile." on profiles
 create function public.handle_new_user()
 returns trigger as $$
 begin
-  insert into public.profiles (id, full_name, avatar_url)
-  values (new.id, new.raw_user_meta_data->>'full_name', new.raw_user_meta_data->>'avatar_url');
+  insert into public.profiles (id, username, avatar_url, email)
+  values (new.id, new.raw_user_meta_data->>'user_name', new.raw_user_meta_data->>'avatar_url', new.email);
   return new;
 end;
 $$ language plpgsql security definer;
@@ -53,9 +67,6 @@ create policy "Avatar images are publicly accessible." on storage.objects
 
 create policy "Anyone can upload an avatar." on storage.objects
   for insert with check (bucket_id = 'avatars');
-
-create policy "Anyone can update their own avatar." on storage.objects
-  for update using (auth.uid() = owner) with check (bucket_id = 'avatars');
 
 -- Create a table for public articles
 create table articles (

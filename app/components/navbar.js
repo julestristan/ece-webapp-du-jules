@@ -1,41 +1,39 @@
-// import Link from "next/link"
-
-// const NavBar = ({navBarStyle}) => {
-//   return <ul className={navBarStyle}>
-//     {[
-//       ['Home', '/', 'mr-0'],
-//       ['About', '/about', 'mr-0'],
-//       ['Contacts', '/contacts', 'mr-0'],
-//       ['Articles', '/articles', 'mr-4']
-//     ].map(([title, url, margin]) => (
-//       <li className="m-3">
-//         <Link href={url}>
-//           <a className={"rounded-lg px-3 py-2 text-slate-700 font-medium hover:bg-red-600 bg-red-400 hover:text-slate-900 " + margin}>{title}</a>
-//         </Link>
-//       </li>
-//     ))
-//     }
-//   </ul>
-// }
-
-// export default NavBar
-
 import { useUser, useSupabaseClient } from "@supabase/auth-helpers-react"
 import Link from "next/link"
 import { useRouter } from "next/router"
+import { useState, useEffect } from 'react'
 
 
 const NavBar = ({navBarStyle}) => {
   const supabaseClient = useSupabaseClient()
   const user = useUser()
   const router = useRouter()
+  const [username, setUsername] = useState([])
+  const id = user?.id
+
+  console.log(user)
 
   function signout(){
     supabaseClient.auth.signOut()
     router.push('/')
   }
 
-  if(user)console.log(user)
+  useEffect(() => {
+    async function getUsername() {
+      const { data, error } = await supabaseClient
+        .from('profiles')
+        .select(`username`)
+        .eq('id', id)
+        .single()
+      if(error){
+        console.log(error)
+      }
+      else{
+        setUsername(data)
+      }
+    }
+    if(user)getUsername() 
+  },[user])
   return (
     <div className={navBarStyle}>
       <div className="flex gap-2 m-2">
@@ -51,11 +49,12 @@ const NavBar = ({navBarStyle}) => {
         ))
         }
       </div>
+      <div className="text-white text-2xl"> WebApp 2022</div>
       <div className="flex gap-2 m-2 items-center">
-        {user ? <div>Hello {user.email}</div> : null}
+        {user ? <div>Hello {username.username}</div> : null}
           {user ?
             <div className="flex flex-row gap-2">
-              <Link href={'/profile'}>
+              <Link href={`/profile/${user.id}`}>
                 <a className="navBarLink">Profile</a>
               </Link>
               <button className="navBarLink" onClick={() => signout()}>

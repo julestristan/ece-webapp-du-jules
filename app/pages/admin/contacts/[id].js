@@ -2,9 +2,7 @@ import { useState, useEffect } from 'react'
 import Head from 'next/head'
 import { useSupabaseClient } from '@supabase/auth-helpers-react'
 
-export default function Contacts({
-  id
-}) {
+export default function Contacts({id}) {
   const [contact, setContact] = useState(null)
   const supabase = useSupabaseClient()
   useEffect(() => {

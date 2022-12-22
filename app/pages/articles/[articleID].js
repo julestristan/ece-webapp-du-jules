@@ -48,7 +48,7 @@ const Article = () => {
       }
     }
 
-    if(typeof id !== "undifined") {
+    if(typeof articleID !== "undifined") {
       getArticle()
       getComments()
     }
@@ -107,7 +107,7 @@ const Article = () => {
         .from("comments")
         .insert([
           {
-            author: user.id,
+            author: user?.id,
             message: comment.message,
             article_id: articleID
           }
@@ -182,6 +182,7 @@ function Comment({comment}){
   const router = useRouter()
   const supabase = useSupabaseClient()
   const user = useUser()
+  const [username, setUsername] = useState([])
 
   const deleteComment = async (commentID) => {
     try{
@@ -195,11 +196,28 @@ function Comment({comment}){
       alert(error.message)
     }
   }
+
+  useEffect(() => {
+    async function getUsername() {
+      const { data, error } = await supabase
+        .from('profiles')
+        .select(`username`)
+        .eq('id', comment.author)
+        .single()
+      if(error){
+        console.log(error)
+      }
+      else{
+        setUsername(data)
+      }
+    }
+    getUsername()
+  })
   
   return(
     <div className='p-4 bg-red-400 rounded-2xl flex'>
       <div className='flex-1 w-3/4'>
-        <div>{comment.author} :</div>
+        <div>{username.username} :</div>
         <p className='ml-4 break-normal'>{comment.message}</p>
       </div>
       {user?.id == comment.author ?
