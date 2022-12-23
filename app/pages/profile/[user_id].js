@@ -58,24 +58,23 @@ const UserProfile = () => {
           }
         ])
         .eq('id', user_id)
+      router.replace(`/profile/${user_id}`)
       if(error) throw error
     } catch(error){
       alert(error.message)
     }
   }
-  console.log(userProfile)
-  console.log(gravatar.url(userProfile.email ,  {s: '100', r: 'x', d: 'retro'}, true))
+
   return (
-    <div className='w-full flex flex-col gap-2'>
+    <div className='w-3/5 flex flex-col gap-2'>
       <div className='p-5 bg-red-300 rounded-2xl flex flex-col gap-2'>
         <h1 className='wt-title'>Profile</h1>
         <div className='flex flex-row justify-evenly items-center gap-10'>
           <div className='flex-1'>
             <div className='flex flex-col gap-2'>
-              <div>
-                <div>Username :</div>
-                <input className='rounded-lg p-1' value={userProfile.username} onChange={handleChange} name="username"/>
-              </div>
+
+              <div>Username :</div>
+              <input className='rounded-lg p-1' value={userProfile.username} onChange={handleChange} name="username"/>
               <div>First name :</div>
               <input className='rounded-lg p-1' value={userProfile.firstname} onChange={handleChange} name="firstname"/>
               <div>Last name :</div>
@@ -91,12 +90,14 @@ const UserProfile = () => {
                   Update
                 </button>
               </div>
+
             </div>
           </div>
 
           <div className='flex-2'>
             <Image src={gravatar.url(userProfile.email ,  {s: '100', r: 'x', d: 'retro'}, true)} alt='avatar' width={200} height={200}/>
           </div>
+          
         </div>
       </div>
     </div>

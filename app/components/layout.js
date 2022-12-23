@@ -4,7 +4,7 @@ import NavBar from './navbar'
 export default function Layout({ children }) {
   return (
     <div className=''>
-      <NavBar navBarStyle='fixed right-0 top-1 bg-indigo-600 flex flex-row w-full justify-between items-center'/>
+      <NavBar navBarStyle='fixed right-0 top-1 bg-indigo-600 grid grid-cols-3 w-full'/>
 
       <main className='flex justify-center p-5 bg-slate-800 min-h-screen pt-24'>{children}</main>
 

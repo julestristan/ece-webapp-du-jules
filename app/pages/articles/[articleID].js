@@ -64,7 +64,7 @@ const Article = () => {
         .delete()
         .eq('id', articleID)
       if(error) throw error
-      router.push('/articles')
+      router.replace('/articles')
     } catch (error) {
       alert(error.message)
     }
@@ -78,27 +78,6 @@ const Article = () => {
         .eq('article_id', articleID)
       if(error) throw error
     } catch (error) {
-      alert(error.message)
-    }
-  }
-
-  async function handleSubmit(e) {
-    e.preventDefault()
-    try{
-      const { data, error } = await supabase
-        .from("comments")
-        .insert([
-          {
-            author: "Thomas",
-            message: comment.message,
-            article_id: articleID
-          }
-        ])
-        .single()
-      if(error) throw error
-      setComment(initialState)
-      router.push(`/articles/${articleID}`)
-    } catch(error){
       alert(error.message)
     }
   }
@@ -117,7 +96,8 @@ const Article = () => {
         .single()
       if(error) throw error
       setComment(initialState)
-      router.reload()
+      router.replace(`/articles/${articleID}`)
+      
     } catch(error){
       alert(error.message)
     }
@@ -172,6 +152,7 @@ const Article = () => {
 export default Article
 
 export async function getServerSideProps(context) {
+  console.log('context: ')
   console.log(context.params)
   return {
     props: {
@@ -185,6 +166,8 @@ function Comment({comment}){
   const supabase = useSupabaseClient()
   const user = useUser()
   const [userProfile, setUserProfile] = useState([])
+
+
 
   const deleteComment = async (commentID) => {
     try{

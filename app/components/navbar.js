@@ -10,9 +10,6 @@ const NavBar = ({navBarStyle}) => {
   const user = useUser()
   const router = useRouter()
   const [userProfile, setUserProfile] = useState([])
-  const id = user?.id
-
-  console.log(user)
 
   function signout(){
     supabaseClient.auth.signOut()
@@ -24,7 +21,7 @@ const NavBar = ({navBarStyle}) => {
       const { data, error } = await supabaseClient
         .from('profiles')
         .select(`username, email`)
-        .eq('id', id)
+        .eq('id', user.id)
         .single()
       if(error){
         console.log(error)
@@ -34,7 +31,8 @@ const NavBar = ({navBarStyle}) => {
       }
     }
     if(user)getUserProfile() 
-  },[user])
+  },[user, supabaseClient, router])
+
   return (
     <div className={navBarStyle}>
       <div className="flex gap-2 m-2">
@@ -50,8 +48,10 @@ const NavBar = ({navBarStyle}) => {
         ))
         }
       </div>
-      <div className="text-white text-2xl"> WebApp 2022</div>
-      <div className="flex gap-2 m-2 items-center">
+      <div className="flex flex-row justify-center items-center text-white text-2xl">
+        WebApp 2022
+      </div>
+      <div className="flex justify-end gap-2 m-2 items-center">
         {user ?
           <div className="flex flex-row gap-2 items-center">
             <div className="flex items-center">Hello {userProfile.username}</div>

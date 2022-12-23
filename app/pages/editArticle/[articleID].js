@@ -1,8 +1,6 @@
-import { SupabaseClient } from "@supabase/supabase-js"
 import { useSupabaseClient } from '@supabase/auth-helpers-react'
 import { useRouter } from 'next/router'
 import React from "react"
-// import axios from "axios";
 import { useState, useEffect } from 'react'
 
 const EditArticle = () => {
