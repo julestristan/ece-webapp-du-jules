@@ -218,20 +218,23 @@ function Comment({comment}){
   
   return(
     <div className='p-4 bg-red-400 rounded-2xl flex gap-5 items-center'>
-      <div className='rounded-full overflow-hidden flex items-center'>
       <Image src={gravatar.url(userProfile.email ,  {s: '100', r: 'x', d: 'retro'}, true)} alt='avatar' width={60} height={60}/>
-      </div>
       <div className='flex-1 w-3/4'>
         <div>{userProfile.username} :</div>
         <p className='ml-4 break-normal'>{comment.message}</p>
       </div>
       {user?.id == comment.author ?
-        <button 
-        className={"rounded-lg px-3 py-2 text-slate-700 font-medium hover:bg-red-600 bg-red-500 hover:text-slate-900"}
-        onClick={() => deleteComment(comment.id)}
-        >
-          Delete
-        </button>
+        <div className='flex gap-2'>
+          <Link href={`/editComment/${comment.id}`}>
+            <a className={"rounded-lg px-3 py-2 text-slate-700 font-medium hover:bg-blue-600 bg-blue-400 hover:text-slate-900"}>Edit</a>
+          </Link>
+          <button 
+          className={"rounded-lg px-3 py-2 text-slate-700 font-medium hover:bg-red-600 bg-red-500 hover:text-slate-900"}
+          onClick={() => deleteComment(comment.id)}
+          >
+            Delete
+          </button>
+        </div>
       : null}
       
     </div>
