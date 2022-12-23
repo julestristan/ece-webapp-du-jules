@@ -61,7 +61,8 @@
   A améliorer
 - Login and profile page  
   /4  
-  En cours
+  En cours  
+  Login with github
 - New articles creation  
   /6  
   Done
@@ -91,7 +92,7 @@
   TO DO
 - Gravatar integration  
   /2  
-  En cours
+  Done
 - Light/dark theme  
   /2  
   TO DO

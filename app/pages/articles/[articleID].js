@@ -2,6 +2,8 @@ import { useRouter } from 'next/router'
 import { useUser, useSupabaseClient } from '@supabase/auth-helpers-react'
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import gravatar from 'gravatar'
+import Image from 'next/image'
 
 const Article = () => {
   const user = useUser()
@@ -182,7 +184,7 @@ function Comment({comment}){
   const router = useRouter()
   const supabase = useSupabaseClient()
   const user = useUser()
-  const [username, setUsername] = useState([])
+  const [userProfile, setUserProfile] = useState([])
 
   const deleteComment = async (commentID) => {
     try{
@@ -198,26 +200,29 @@ function Comment({comment}){
   }
 
   useEffect(() => {
-    async function getUsername() {
+    async function getUserProfile() {
       const { data, error } = await supabase
         .from('profiles')
-        .select(`username`)
+        .select(`username, email`)
         .eq('id', comment.author)
         .single()
       if(error){
         console.log(error)
       }
       else{
-        setUsername(data)
+        setUserProfile(data)
       }
     }
-    getUsername()
+    getUserProfile()
   })
   
   return(
-    <div className='p-4 bg-red-400 rounded-2xl flex'>
+    <div className='p-4 bg-red-400 rounded-2xl flex gap-5 items-center'>
+      <div className='rounded-full overflow-hidden flex items-center'>
+      <Image src={gravatar.url(userProfile.email ,  {s: '100', r: 'x', d: 'retro'}, true)} alt='avatar' width={60} height={60}/>
+      </div>
       <div className='flex-1 w-3/4'>
-        <div>{username.username} :</div>
+        <div>{userProfile.username} :</div>
         <p className='ml-4 break-normal'>{comment.message}</p>
       </div>
       {user?.id == comment.author ?

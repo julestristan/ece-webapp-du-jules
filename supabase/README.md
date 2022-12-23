@@ -2,20 +2,6 @@
 
 This is a minimal Docker Compose setup for self-hosting Supabase. Follow the steps [here](https://supabase.com/docs/guides/hosting/docker) to get started.
 
-
--- Create a table for public profiles
-create table profiles (
-  id uuid references auth.users not null primary key,
-  updated_at timestamp with time zone,
-  username text unique,
-  firstname text,
-  lastname text,
-  email text unique,
-  avatar_url text,
-
-  constraint username_length check (char_length(username) >= 3)
-);
-
 -- Create a table for public profiles
 create table profiles (
   id uuid references auth.users on delete cascade not null primary key,

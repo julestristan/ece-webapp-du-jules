@@ -8,10 +8,10 @@ import { useState, useEffect } from 'react'
 const EditArticle = () => {
   const router = useRouter()
   const { articleID } = router.query
-  const initialState = {
-    title: "",
-    content: ""
-  }
+    const initialState = {
+      title: "",
+      content: ""
+    }
 
   const supabase = useSupabaseClient()
   const [articleData, setArticleData] = useState(initialState)

@@ -2,13 +2,14 @@ import { useUser, useSupabaseClient } from "@supabase/auth-helpers-react"
 import Link from "next/link"
 import { useRouter } from "next/router"
 import { useState, useEffect } from 'react'
-
+import gravatar from 'gravatar'
+import Image from 'next/image'
 
 const NavBar = ({navBarStyle}) => {
   const supabaseClient = useSupabaseClient()
   const user = useUser()
   const router = useRouter()
-  const [username, setUsername] = useState([])
+  const [userProfile, setUserProfile] = useState([])
   const id = user?.id
 
   console.log(user)
@@ -19,20 +20,20 @@ const NavBar = ({navBarStyle}) => {
   }
 
   useEffect(() => {
-    async function getUsername() {
+    async function getUserProfile() {
       const { data, error } = await supabaseClient
         .from('profiles')
-        .select(`username`)
+        .select(`username, email`)
         .eq('id', id)
         .single()
       if(error){
         console.log(error)
       }
       else{
-        setUsername(data)
+        setUserProfile(data)
       }
     }
-    if(user)getUsername() 
+    if(user)getUserProfile() 
   },[user])
   return (
     <div className={navBarStyle}>
@@ -51,21 +52,24 @@ const NavBar = ({navBarStyle}) => {
       </div>
       <div className="text-white text-2xl"> WebApp 2022</div>
       <div className="flex gap-2 m-2 items-center">
-        {user ? <div>Hello {username.username}</div> : null}
-          {user ?
-            <div className="flex flex-row gap-2">
-              <Link href={`/profile/${user.id}`}>
-                <a className="navBarLink">Profile</a>
-              </Link>
-              <button className="navBarLink" onClick={() => signout()}>
-                Logout
-              </button>
+        {user ?
+          <div className="flex flex-row gap-2 items-center">
+            <div className="flex items-center">Hello {userProfile.username}</div>
+            <div className='rounded-full overflow-hidden flex items-center'>
+              <Image src={gravatar.url(userProfile.email ,  {s: '100', r: 'x', d: 'retro'}, true)} alt='avatar' width={40} height={40}/>
             </div>
-          :
-            <Link href={'/login'}>
-              <a className="navBarLink">Login</a>
+            <Link href={`/profile/${user.id}`}>
+              <a className="navBarLink">Profile</a>
             </Link>
-          }
+            <button className="navBarLink" onClick={() => signout()}>
+              Logout
+            </button>
+          </div>
+        :
+          <Link href={'/login'}>
+            <a className="navBarLink">Login</a>
+          </Link>
+        }
 
       </div>
     </div>
