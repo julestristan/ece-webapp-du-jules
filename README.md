@@ -57,33 +57,47 @@
 **Application development:**
 
 - Home page  
-  *place your graduation and comments*
+  /2  
+  A améliorer
 - Login and profile page  
-  *place your graduation and comments*
+  /4  
+  En cours
 - New articles creation  
-  *place your graduation and comments*
+  /6  
+  Done
 - New comment creation  
-  *place your graduation and comments*
+  /4  
+  Done
 - Resource access control  
-  *place your graduation and comments*
+  /6  
+  TO DO
 - Article modification  
-  *place your graduation and comments*
+  /4  
+  Done
 - Article removal  
-  *place your graduation and comments*
+  /2  
+  Done
 - Comment modification  
-  *place your graduation and comments*
+  /2  
+  TO DO
 - Comment removal  
-  *place your graduation and comments*
+  /2
+  Done
 - Account settings  
-  *place your graduation and comments*
+  /4  
+  Done (username, firstname, lastname, email)
 - WYSIWYG integration  
-  *place your graduation and comments*
+  /2  
+  TO DO
 - Gravatar integration  
-  *place your graduation and comments*
+  /2  
+  En cours
 - Light/dark theme  
-  *place your graduation and comments*
+  /2  
+  TO DO
 - Accent color selection  
-  *place your graduation and comments*
+  /4
+  TO DO
 
 ## Bonus
 
