@@ -39,9 +39,6 @@ export default function Articles() {
               </div>
             </Link>
           : null}
-          
-
-          
         </div>
       </div>
     </div>
@@ -53,7 +50,7 @@ function Article({articleData}){
     <Link href={`/articles/${articleData.id}`}>
       <div className='rounded-lg hover:bg-blue-500 bg-blue-400 p-2'>
         <div className='m-2 font-bold truncate'>{articleData.title}</div>
-        <div className='bg-blue-600 p-1 truncate'>{articleData.content}</div>
+        <div className='rounded-lg bg-blue-600 p-1 truncate'>{articleData.content}</div>
       </div>
     </Link>
   )

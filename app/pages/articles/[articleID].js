@@ -54,7 +54,7 @@ const Article = () => {
       getArticle()
       getComments()
     }
-  }, [articleID])
+  }, [articleID, router])
 
   const deleteArticle = async () => {
     deleteComments()
@@ -166,8 +166,6 @@ function Comment({comment}){
   const supabase = useSupabaseClient()
   const user = useUser()
   const [userProfile, setUserProfile] = useState([])
-
-
 
   const deleteComment = async (commentID) => {
     try{

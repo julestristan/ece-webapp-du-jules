@@ -48,7 +48,7 @@ const NavBar = ({navBarStyle}) => {
         ))
         }
       </div>
-      <div className="flex flex-row justify-center items-center text-white text-2xl">
+      <div className="flex flex-row justify-center items-center text-2xl">
         WebApp 2022
       </div>
       <div className="flex justify-end gap-2 m-2 items-center">

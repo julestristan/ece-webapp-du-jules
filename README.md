@@ -80,7 +80,7 @@
   Done
 - Comment modification  
   /2  
-  TO DO
+  Done
 - Comment removal  
   /2
   Done
@@ -89,7 +89,7 @@
   Done (username, firstname, lastname, email)
 - WYSIWYG integration  
   /2  
-  TO DO
+  En cours (tiptap)
 - Gravatar integration  
   /2  
   Done

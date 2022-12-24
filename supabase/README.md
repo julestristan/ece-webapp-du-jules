@@ -5,12 +5,11 @@ This is a minimal Docker Compose setup for self-hosting Supabase. Follow the ste
 -- Create a table for public profiles
 create table profiles (
   id uuid references auth.users on delete cascade not null primary key,
-  updated_at timestamp with time zone,
+  updated_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::TEXT, NOW()) NOT NULL,
   username text unique,
   firstname text,
   lastname text,
-  email text unique,
-  avatar_url text,
+  email text unique
 
   constraint username_length check (char_length(username) >= 3)
 );
@@ -33,8 +32,8 @@ create policy "Users can update own profile." on profiles
 create function public.handle_new_user()
 returns trigger as $$
 begin
-  insert into public.profiles (id, username, avatar_url, email)
-  values (new.id, new.raw_user_meta_data->>'user_name', new.raw_user_meta_data->>'avatar_url', new.email);
+  insert into public.profiles (id, username, email)
+  values (new.id, new.raw_user_meta_data->>'user_name', new.email);
   return new;
 end;
 $$ language plpgsql security definer;
@@ -70,3 +69,25 @@ create table comments (
   author uuid,
   message text
 );
+
+docker rename supabase-kong supabase-kong1
+docker rename supabase-auth supabase-auth1
+docker rename supabase-meta supabase-meta1
+docker rename supabase-studio supabase-studio1
+docker rename supabase-realtime supabase-realtime1
+docker rename supabase-mail supabase-mail1
+docker rename supabase-storage supabase-storage1
+docker rename supabase-rest supabase-rest1
+docker rename supabase-db supabase-db1
+docker rename supabase-imgproxy supabase-imgproxy1
+
+docker rm supabase-kong
+docker rm supabase-auth
+docker rm supabase-meta
+docker rm supabase-studio
+docker rm supabase-realtime
+docker rm supabase-mail
+docker rm supabase-storage
+docker rm supabase-rest
+docker rm supabase-db
+docker rm supabase-imgproxy
