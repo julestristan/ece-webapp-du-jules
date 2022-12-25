@@ -12,6 +12,7 @@ const Article = () => {
   const supabase = useSupabaseClient()
   const [articleData, setArticleData] = useState([])
   const [comments, setComments] = useState([])
+  const [authorProfile, setAuthorProfile] = useState([])
 
   const initialState = {
     message: ""
@@ -26,7 +27,7 @@ const Article = () => {
     async function getArticle() {
       const { data, error } = await supabase
         .from('articles')
-        .select(`title, content, author`)
+        .select(`title, content, author, created_at`)
         .eq('id', articleID)
         .single()
       if(error){
@@ -34,6 +35,8 @@ const Article = () => {
       }
       else{
         setArticleData(data)
+        getAuthorProfile(data.author)
+        getComments()
       }
     }
 
@@ -50,11 +53,24 @@ const Article = () => {
       }
     }
 
+    async function getAuthorProfile(author_id) {
+      const { data, error } = await supabase
+        .from('profiles')
+        .select(`username, email`)
+        .eq('id', author_id)
+        .single()
+      if(error){
+        console.log(error)
+      }
+      else{
+        setAuthorProfile(data)
+      }
+    }
+
     if(typeof articleID !== "undifined") {
       getArticle()
-      getComments()
     }
-  }, [articleID, router])
+  }, [router])
 
   const deleteArticle = async () => {
     deleteComments()
@@ -103,6 +119,15 @@ const Article = () => {
     }
   }
 
+  function displayDate(){
+    const dayName = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+    const monthName = ["January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"]
+    const time = Date.parse(articleData.created_at)
+    const date = new Date(time)
+    return dayName[date.getDay()] + ' ' + monthName[date.getMonth()] + ' ' + date.getDate() + " " + date.getFullYear()
+  }
+
   return (
     <div className='w-full flex flex-col gap-2'>
       <div className='p-5 themeColor2 rounded-2xl flex flex-col gap-2'>
@@ -112,19 +137,26 @@ const Article = () => {
         <div className='my-8 themeColor1 rounded-lg p-2'>
           {articleData.content}
         </div>
-        {user?.id == articleData.author ?
-          <div className='flex gap-2'>
-            <Link href={`/editArticle/${articleID}`}>
-              <a className={"rounded-lg px-3 py-2 text-slate-700 font-medium hover:bg-blue-600 bg-blue-400 hover:text-slate-900"}>Edit</a>
-            </Link>
-            <button 
-              className={"rounded-lg px-3 py-2 text-slate-700 font-medium hover:bg-red-600 bg-red-400 hover:text-slate-900"}
-              onClick={() => deleteArticle()}
-            >
-              Delete
-            </button>
+        <div className='flex flex-row gap-2 items-center justify-between'>
+          <div className='flex flex-row gap-4 items-center'>
+            <div>By {authorProfile?.username}</div>
+            <Image src={gravatar.url(authorProfile?.email ,  {s: '100', r: 'x', d: 'retro'}, true)} alt='avatar' width={50} height={50}/>
+            {displayDate()}
           </div>
-        : null}
+          {user?.id == articleData.author ?
+            <div className='flex gap-2 items-center'>
+              <Link href={`/editArticle/${articleID}`}>
+                <a className={"rounded-lg px-3 py-2 text-slate-700 font-medium hover:bg-blue-600 bg-blue-400 hover:text-slate-900"}>Edit</a>
+              </Link>
+              <button 
+                className={"rounded-lg px-3 py-2 text-slate-700 font-medium hover:bg-red-600 bg-red-400 hover:text-slate-900"}
+                onClick={() => deleteArticle()}
+              >
+                Delete
+              </button>
+            </div>
+          : null}
+        </div>
       </div>
 
       <div className='p-5 themeColor2 rounded-2xl flex flex-col gap-2'>

@@ -70,25 +70,30 @@ function Article({articleData}){
       getAuthorProfile()
     }
   }, [])
-  console.log(articleData.created_at)
-  function getDate(){
+
+  function displayDate(){
+    const dayName = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+    const monthName = ["January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"]
     const time = Date.parse(articleData.created_at)
     const date = new Date(time)
-    return date.getDay() + "-" + date.getMonth() + "-" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() 
+    const currentDate = new Date()
+    if(currentDate.getDate() == date.getDate() && currentDate.getMonth() == date.getMonth() && currentDate.getFullYear() == date.getFullYear())
+      return 'Today ' + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds()
+    else return dayName[date.getDay()] + ' ' + monthName[date.getMonth()] + ' ' + date.getDate() + " " + date.getFullYear()
   }
-
+  
   return(
     <Link href={`/articles/${articleData.id}`}>
       <div className='rounded-lg themeHoverColor2 themeColor2 p-2 ring-[themeColor2] flex flex-col gap-2'>
         <div className='flex items-center gap-2'>
           <div className='rounded-full overflow-hidden flex items-center bg-slate-200'>
-            <Image src={gravatar.url(authorProfile.email ,  {s: '100', r: 'x', d: 'retro'}, true)} alt='avatar' width={40} height={40}/>
+            <Image src={gravatar.url(authorProfile.email, {s: '100', r: 'x', d: 'retro'}, true)} alt='avatar' width={40} height={40}/>
           </div>
           <div>{authorProfile.username}</div>
         </div>
         <div className='m-2 font-bold text-xl truncate text-center'>{articleData.title}</div>
-        
-        <div>{getDate()}</div>
+        <div>{displayDate()}</div>
       </div>
     </Link>
   )
