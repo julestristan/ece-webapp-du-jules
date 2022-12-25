@@ -71,14 +71,8 @@ const UserProfile = () => {
 
   return (
     <div className='w-3/5 flex flex-col gap-2'>
-      <UserProfileCard userProfile={userProfile} handleChange={handleChange}/>
+      <UserProfileCard userProfile={userProfile} handleChange={handleChange} updateProfile={updateProfile}/>
       <UserPreferencesCard userProfile={userProfile} handleChange={handleChange}/>
-      <button 
-        className="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5"
-        onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-        >
-          toggle
-        </button>
     </div>
   )
 }
@@ -86,9 +80,9 @@ export default UserProfile
 
 export const getServerSideProps = withPageAuth({ redirectTo: '/login'})
 
-function UserProfileCard({userProfile, handleChange}){
+function UserProfileCard({userProfile, handleChange, updateProfile}){
   return(
-    <div className='p-5 bg-red-300 rounded-2xl flex flex-col gap-2 dark:bg-slate-500'>
+    <div className='p-5 themeColor2 rounded-2xl flex flex-col gap-2'>
       <h1 className='wt-title'>Profile</h1>
       <div className='flex flex-row justify-evenly items-center gap-10'>
         <div className='flex-1'>
@@ -130,7 +124,7 @@ function UserData({userProfile, handleChange}){
 function UserPreferencesCard({userProfile, handleChange}){
   console.log(userProfile.color)
   return(
-    <div className={`p-5 bg-red-300 rounded-2xl flex flex-col gap-2 dark:bg-slate-500`}>
+    <div className={`p-5 themeColor2 rounded-2xl flex flex-col gap-2`}>
         <h1 className='wt-title'>Preferences</h1>
         
         <div className='flex gap-2'>

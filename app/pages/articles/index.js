@@ -34,7 +34,7 @@ export default function Articles() {
           ))}
           {user?
             <Link href={'/articles/createArticle'}>
-              <div className='rounded-lg hover:bg-blue-500 bg-blue-400 p-2 flex items-center justify-center'>
+              <div className='rounded-lg themeHoverColor2 themeColor2 p-2 flex items-center justify-center'>
                 <a className='font-bold text-xl'> + Create new article</a>
               </div>
             </Link>
@@ -48,9 +48,9 @@ export default function Articles() {
 function Article({articleData}){
   return(
     <Link href={`/articles/${articleData.id}`}>
-      <div className='rounded-lg hover:bg-blue-500 bg-blue-400 p-2'>
+      <div className='rounded-lg themeHoverColor2 themeColor2 p-2 ring-[themeColor2]'>
         <div className='m-2 font-bold truncate'>{articleData.title}</div>
-        <div className='rounded-lg bg-blue-600 p-1 truncate'>{articleData.content}</div>
+        <div className='rounded-lg themeColor1 themeHoverColor1 p-1 truncate'>{articleData.content}</div>
       </div>
     </Link>
   )

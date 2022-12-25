@@ -105,11 +105,11 @@ const Article = () => {
 
   return (
     <div className='w-full flex flex-col gap-2'>
-      <div className='p-5 bg-red-300 rounded-2xl flex flex-col gap-2'>
+      <div className='p-5 themeColor2 rounded-2xl flex flex-col gap-2'>
         <h1 className='wt-title'>
           {articleData.title}
         </h1>
-        <div>
+        <div className='my-8 themeColor1 rounded-lg p-2'>
           {articleData.content}
         </div>
         {user?.id == articleData.author ?
@@ -127,7 +127,7 @@ const Article = () => {
         : null}
       </div>
 
-      <div className='p-5 bg-red-300 rounded-2xl flex flex-col gap-2'>
+      <div className='p-5 themeColor2 rounded-2xl flex flex-col gap-2'>
         <div className='text-xl font-bold'>Comments</div>
         {comments.map((comment) => (
             <Comment key={comment.id} comment={comment} />
@@ -197,7 +197,7 @@ function Comment({comment}){
   })
   
   return(
-    <div className='p-4 bg-red-400 rounded-2xl flex gap-5 items-center'>
+    <div className='p-4 themeColor1 rounded-2xl flex gap-5 items-center'>
       <Image src={gravatar.url(userProfile.email ,  {s: '100', r: 'x', d: 'retro'}, true)} alt='avatar' width={60} height={60}/>
       <div className='flex-1 w-3/4'>
         <div>{userProfile.username} :</div>

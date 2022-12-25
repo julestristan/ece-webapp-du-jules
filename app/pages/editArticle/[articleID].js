@@ -59,7 +59,7 @@ const EditArticle = () => {
   
   return (
     <div className='w-full flex flex-col gap-2'>
-      <div className='p-5 bg-red-300 rounded-2xl flex flex-col gap-2'>
+      <div className='p-5 themeColor2 rounded-2xl flex flex-col gap-2'>
         <h1 className='wt-title'>Edit article</h1>
         <div className="flex flex-col p-2">
           <form className="flex flex-col gap-2" onSubmit={handleSubmit}>
