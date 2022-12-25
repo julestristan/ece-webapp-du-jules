@@ -7,7 +7,7 @@
 }
 
 .navBarLink {
-  @apply rounded-lg p-2 font-medium themeColor1 themeHoverColor1 hover:text-slate-900 
+  @apply rounded-lg p-2 font-medium themeColor1 themeHoverColor1 hover:text-slate-900 flex
 }
 
 .themeColor1 {
@@ -15,7 +15,7 @@
 }
 
 .themeHoverColor1 {
-  @apply dark:hover:bg-green-800 hover:bg-green-300
+  @apply dark:hover:bg-green-800 hover:bg-green-300 ease-in duration-200
 }
 
 .themeColor2 {
@@ -23,11 +23,11 @@
 }
 
 .themeHoverColor2 {
-  @apply dark:hover:bg-green-900 hover:bg-green-400
+  @apply dark:hover:bg-green-900 hover:bg-green-400 ease-in duration-200
 }
 
 @layer base {
   body {
-    @apply themeColor1
+    @apply themeColor1 ease-in duration-200
   }
 }

@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
 import { useUser, useSupabaseClient } from '@supabase/auth-helpers-react'
+import gravatar from 'gravatar'
+import Image from 'next/image'
 
 export default function Articles() {
   const [articles, setArticles] = useState([])
@@ -12,7 +14,7 @@ export default function Articles() {
     (async () => {
       let { data, error, status } = await supabase
         .from('articles')
-        .select(`id, title, content`)
+        .select(`id, title, content, created_at, author`)
         setArticles(data)
     })()
   }, [supabase])
@@ -46,11 +48,47 @@ export default function Articles() {
 }
 
 function Article({articleData}){
+  const supabase = useSupabaseClient()
+  const [authorProfile, setAuthorProfile] = useState([])
+
+  useEffect(() => {
+    async function getAuthorProfile() {
+      const { data, error } = await supabase
+        .from('profiles')
+        .select(`username, email`)
+        .eq('id', articleData.author)
+        .single()
+      if(error){
+        console.log(error)
+      }
+      else{
+        setAuthorProfile(data)
+      }
+    }
+
+    if(typeof id !== "undifined") {
+      getAuthorProfile()
+    }
+  }, [])
+  console.log(articleData.created_at)
+  function getDate(){
+    const time = Date.parse(articleData.created_at)
+    const date = new Date(time)
+    return date.getDay() + "-" + date.getMonth() + "-" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() 
+  }
+
   return(
     <Link href={`/articles/${articleData.id}`}>
-      <div className='rounded-lg themeHoverColor2 themeColor2 p-2 ring-[themeColor2]'>
-        <div className='m-2 font-bold truncate'>{articleData.title}</div>
-        <div className='rounded-lg themeColor1 themeHoverColor1 p-1 truncate'>{articleData.content}</div>
+      <div className='rounded-lg themeHoverColor2 themeColor2 p-2 ring-[themeColor2] flex flex-col gap-2'>
+        <div className='flex items-center gap-2'>
+          <div className='rounded-full overflow-hidden flex items-center bg-slate-200'>
+            <Image src={gravatar.url(authorProfile.email ,  {s: '100', r: 'x', d: 'retro'}, true)} alt='avatar' width={40} height={40}/>
+          </div>
+          <div>{authorProfile.username}</div>
+        </div>
+        <div className='m-2 font-bold text-xl truncate text-center'>{articleData.title}</div>
+        
+        <div>{getDate()}</div>
       </div>
     </Link>
   )

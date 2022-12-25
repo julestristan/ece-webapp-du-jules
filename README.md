@@ -57,45 +57,45 @@
 **Application development:**
 
 - Home page  
-  /2  
+  1/2  
   A améliorer
 - Login and profile page  
-  /4  
+  3/4  
   En cours  
   Login with github
 - New articles creation  
-  /6  
+  6/6  
   Done
 - New comment creation  
-  /4  
+  4/4  
   Done
 - Resource access control  
   /6  
   TO DO
 - Article modification  
-  /4  
+  4/4  
   Done
 - Article removal  
-  /2  
-  Done
+  2/2  
+  Done, when the article is removed all its comments are removed too
 - Comment modification  
-  /2  
+  2/2  
   Done
 - Comment removal  
-  /2
+  2/2
   Done
 - Account settings  
   /4  
   Done (username, firstname, lastname, email)
 - WYSIWYG integration  
   /2  
-  En cours (tiptap)
+  TO DO
 - Gravatar integration  
-  /2  
+  2/2  
   Done
 - Light/dark theme  
-  /2  
-  TO DO
+  2/2  
+  Done
 - Accent color selection  
   /4
   TO DO
