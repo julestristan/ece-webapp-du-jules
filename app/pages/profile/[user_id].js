@@ -17,7 +17,8 @@ const UserProfile = () => {
     username: "",
     firstname: "",
     lastname: "",
-    email: ""
+    email: "",
+    color: "#3f3cbb"
   }
 
   const [userProfile, setUserProfile] = useState(initialState)
@@ -70,48 +71,72 @@ const UserProfile = () => {
 
   return (
     <div className='w-3/5 flex flex-col gap-2'>
-      <div className='p-5 bg-red-300 rounded-2xl flex flex-col gap-2 dark:bg-slate-500'>
-        <h1 className='wt-title'>Profile</h1>
-        <button 
-        className="rounded-lg px-3 py-2 text-slate-700 font-medium hover:bg-red-600 bg-red-500 hover:text-slate-900"
+      <UserProfileCard userProfile={userProfile} handleChange={handleChange}/>
+      <UserPreferencesCard userProfile={userProfile} handleChange={handleChange}/>
+      <button 
+        className="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5"
         onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
         >
           toggle
         </button>
-        <div className='flex flex-row justify-evenly items-center gap-10'>
-          <div className='flex-1'>
-            <div className='flex flex-col gap-2'>
-
-              <div>Username :</div>
-              <input className='rounded-lg p-1' value={userProfile.username} onChange={handleChange} name="username"/>
-              <div>First name :</div>
-              <input className='rounded-lg p-1' value={userProfile.firstname} onChange={handleChange} name="firstname"/>
-              <div>Last name :</div>
-              <input className='rounded-lg p-1' value={userProfile.lastname} onChange={handleChange} name="lastname"/>
-              <div>Email :</div>
-              <input className='rounded-lg p-1' value={userProfile.email} onChange={handleChange} name="email"/>
-
-              <div>
-                <button 
-                className="rounded-lg px-3 py-2 text-slate-700 font-medium hover:bg-red-600 bg-red-500 hover:text-slate-900"
-                onClick={() => updateProfile()}
-                >
-                  Update
-                </button>
-              </div>
-
-            </div>
-          </div>
-
-          <div className='flex-2'>
-            <Image src={gravatar.url(userProfile.email ,  {s: '100', r: 'x', d: 'retro'}, true)} alt='avatar' width={200} height={200}/>
-          </div>
-          
-        </div>
-      </div>
     </div>
   )
 }
 export default UserProfile  
 
 export const getServerSideProps = withPageAuth({ redirectTo: '/login'})
+
+function UserProfileCard({userProfile, handleChange}){
+  return(
+    <div className='p-5 bg-red-300 rounded-2xl flex flex-col gap-2 dark:bg-slate-500'>
+      <h1 className='wt-title'>Profile</h1>
+      <div className='flex flex-row justify-evenly items-center gap-10'>
+        <div className='flex-1'>
+          <div className='flex flex-col gap-2'>
+            <UserData userProfile={userProfile} handleChange={handleChange}/>
+            <div>
+              <button 
+              className="rounded-lg px-3 py-2 text-slate-700 font-medium hover:bg-red-600 bg-red-500 hover:text-slate-900"
+              onClick={() => updateProfile()}
+              >
+                Update
+              </button>
+            </div>
+          </div>
+        </div>
+        <div className='flex-2'>
+          <Image src={gravatar.url(userProfile.email ,  {s: '100', r: 'x', d: 'retro'}, true)} alt='avatar' width={200} height={200}/>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function UserData({userProfile, handleChange}){
+  return(
+    <div>
+      <div>Username :</div>
+      <input className='rounded-lg p-1 w-full' value={userProfile.username} onChange={handleChange} name="username"/>
+      <div>First name :</div>
+      <input className='rounded-lg p-1 w-full' value={userProfile.firstname} onChange={handleChange} name="firstname"/>
+      <div>Last name :</div>
+      <input className='rounded-lg p-1 w-full' value={userProfile.lastname} onChange={handleChange} name="lastname"/>
+      <div>Email :</div>
+      <input className='rounded-lg p-1 w-full' value={userProfile.email} onChange={handleChange} name="email"/>
+    </div>
+  )
+}
+
+function UserPreferencesCard({userProfile, handleChange}){
+  console.log(userProfile.color)
+  return(
+    <div className={`p-5 bg-red-300 rounded-2xl flex flex-col gap-2 dark:bg-slate-500`}>
+        <h1 className='wt-title'>Preferences</h1>
+        
+        <div className='flex gap-2'>
+          <div>Color: </div>
+          <input className='rounded-lg p-0 overflow-hidden' type='color' onChange={handleChange} name='color' value={userProfile.color}/>
+        </div>
+      </div>
+  )
+}

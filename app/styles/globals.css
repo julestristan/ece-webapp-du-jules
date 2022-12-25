@@ -9,3 +9,9 @@
 .navBarLink {
   @apply rounded-lg p-2 text-slate-700 font-medium hover:bg-red-600 bg-red-400 hover:text-slate-900
 }
+
+@layer base {
+  body {
+    @apply dark:bg-green-400 bg-orange-500
+  }
+}

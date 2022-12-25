@@ -104,8 +104,7 @@ const Article = () => {
   }
 
   return (
-    <div className='min-w-full flex flex-col gap-2'>
-
+    <div className='w-full flex flex-col gap-2'>
       <div className='p-5 bg-red-300 rounded-2xl flex flex-col gap-2'>
         <h1 className='wt-title'>
           {articleData.title}
@@ -138,7 +137,7 @@ const Article = () => {
       {user?
         <div className='p-5 bg-blue-300 rounded-2xl flex flex-col gap-4'>
           <div>Write comment :</div>
-          <textarea className="rounded-lg p-2" name="message" placeholder="Comment" onChange={handleChange} value={comment.message}/>
+          <textarea className="rounded-lg p-2 dark:bg-neutral-700" name="message" placeholder="Comment" onChange={handleChange} value={comment.message}/>
           <button 
             className={"rounded-lg px-3 py-2 text-slate-700 font-medium hover:bg-blue-600 bg-blue-500 hover:text-slate-900"}
             onClick={() => sendComment()}>

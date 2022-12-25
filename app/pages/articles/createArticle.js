@@ -40,14 +40,16 @@ const CreateArticle = () => {
     }
   }
   return (
-    <div>
-      <div className="bg-red-600 p-2">
-        <h1 className="text-center">Create new article</h1>
-        <div className="bg-blue-300 flex flex-col p-2">
+    <div className='w-full flex flex-col gap-2'>
+      <div className='p-5 bg-red-300 rounded-2xl flex flex-col gap-2'>
+        <h1 className='wt-title'>Create article</h1>
+        <div className="flex flex-col p-2">
           <form className="flex flex-col gap-2" onSubmit={handleSubmit}>
+            <label htmlFor="title">Title:</label>
             <input className="rounded-lg p-2" name="title" placeholder="Enter title" onChange={handleChange} value={articleData.title} required />
-            <textarea className="rounded-lg p-2" name="content" placeholder="Enter content" onChange={handleChange} value={articleData.content} required />
-            <div className="flex gap-2">
+            <label htmlFor="content">Content:</label>
+            <textarea className="rounded-lg p-2 dark:bg-neutral-700" name="content" placeholder="Enter content" onChange={handleChange} value={articleData.content} required />
+            <div className='flex gap-2'>
               <button className="rounded-lg px-3 py-2 text-slate-700 font-medium hover:bg-blue-600 bg-blue-500 hover:text-slate-900"
                 type="submit">
                 Create
@@ -61,7 +63,6 @@ const CreateArticle = () => {
           </form>
         </div>
       </div>
-      
     </div>
   )
 }
