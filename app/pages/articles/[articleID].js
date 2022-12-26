@@ -120,9 +120,9 @@ const Article = () => {
   }
 
   function displayDate(){
-    const dayName = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+    const dayName = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
     const monthName = ["January", "February", "March", "April", "May", "June",
-    "July", "August", "September", "October", "November", "December"]
+    "July", "August", "September", "October", "November", "December"] 
     const time = Date.parse(articleData.created_at)
     const date = new Date(time)
     return dayName[date.getDay()] + ' ' + monthName[date.getMonth()] + ' ' + date.getDate() + " " + date.getFullYear()
@@ -131,7 +131,7 @@ const Article = () => {
   return (
     <div className='w-full flex flex-col gap-2'>
       <div className='p-5 themeColor2 rounded-2xl flex flex-col gap-2'>
-        <h1 className='wt-title'>
+        <h1 className='wt-title truncate'>
           {articleData.title}
         </h1>
         <div className='my-8 themeColor1 rounded-lg p-2'>

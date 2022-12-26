@@ -71,7 +71,7 @@ function Article({articleData}){
   }, [])
 
   function displayDate(){
-    const dayName = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+    const dayName = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
     const monthName = ["January", "February", "March", "April", "May", "June",
     "July", "August", "September", "October", "November", "December"]
     const time = Date.parse(articleData.created_at)

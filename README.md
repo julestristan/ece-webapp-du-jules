@@ -9,8 +9,6 @@
 
 ## Usage
 
-*how to start and use the application, run the tests, ...*
-
 - Clone this repository, from your local machine:
 
   ```bash

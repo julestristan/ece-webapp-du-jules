@@ -2,6 +2,7 @@ import { useSupabaseClient } from '@supabase/auth-helpers-react'
 import { useRouter } from 'next/router'
 import React from "react"
 import { useState, useEffect } from 'react'
+import { withPageAuth } from "@supabase/auth-helpers-nextjs"
 
 const EditArticle = () => {
   const router = useRouter()
@@ -86,3 +87,6 @@ const EditArticle = () => {
 }
 
 export default EditArticle
+
+
+export const getServerSideProps = withPageAuth({ redirectTo: '/login'})
