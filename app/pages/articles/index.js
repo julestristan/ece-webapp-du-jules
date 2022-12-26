@@ -34,13 +34,12 @@ export default function Articles() {
           {articles.map((article) => (
             <Article key={article.id} articleData={article} />
           ))}
-          {user?
-            <Link href={'/articles/createArticle'}>
-              <div className='rounded-lg themeHoverColor2 themeColor2 p-2 flex items-center justify-center'>
-                <a className='font-bold text-xl'> + Create new article</a>
-              </div>
-            </Link>
-          : null}
+
+          <Link href={user ? '/articles/createArticle' : '/login'}>
+            <div className='rounded-lg themeHoverColor2 themeColor2 p-2 flex items-center justify-center'>
+              <a className='font-bold text-xl'> + Create new article</a>
+            </div>
+          </Link>
         </div>
       </div>
     </div>
@@ -85,7 +84,7 @@ function Article({articleData}){
   
   return(
     <Link href={`/articles/${articleData.id}`}>
-      <div className='rounded-lg themeHoverColor2 themeColor2 p-2 ring-[themeColor2] flex flex-col gap-2'>
+      <div className='rounded-lg themeHoverColor2 themeColor2 p-2 flex flex-col gap-2'>
         <div className='flex items-center gap-2'>
           <div className='rounded-full overflow-hidden flex items-center bg-slate-200'>
             <Image src={gravatar.url(authorProfile.email, {s: '100', r: 'x', d: 'retro'}, true)} alt='avatar' width={40} height={40}/>

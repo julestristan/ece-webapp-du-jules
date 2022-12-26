@@ -14,30 +14,57 @@
 - Clone this repository, from your local machine:
 
   ```bash
-  git clone ...
-  cd ...
+  git clone git@github.com:julestristan/ece-webapp-du-jules.git
+  cd ece-webapp-du-jules
   ```
 
-- Start the the application
+- Start the application
 
   ```bash
+  # From root
   cd app
+  # .env file configuration
+  cp .env.example .env
   # Install dependencies (use yarn or npm)
   npm install
   npm run build
   npm start
   ```
 
+- Register the application on github in order to login with github
+
+  Use this [link](https://github.com/settings/applications/new) or go to "Settings > Settings Developer settings > OAuth Apps > New OAuth App".
+
+  To register your application, GitHub asks for:
+
+  Application name: Local Supabase for WebTechNext  
+  Homepage URL: <http://localhost:3000>  
+  Authorization callback URL: <http://localhost:8000/auth/v1/callback>
+
+  Keep you clientID et generate the client secret.
+
+  ```bash
+  # From root
+  cd supabase
+  # .env file configuration
+  cp .env.example .env
+  ```
+
+  Open and update `.env` file accordingly with:
+  
+  - `GOTRUE_EXTERNAL_GITHUB_CLIENT_ID`
+  - `GOTRUE_EXTERNAL_GITHUB_SECRET`
+
 - Start Supabase
 
   ```bash
-  cd supabase
-  docker compose up
+  docker-compose -f docker-compose.yml -f ./dev/docker-compose.dev.yml up
   ```
 
 ## Authors
 
-*name, email, ...*
+- Du Thomas, thomas.du@edu.ece.fr
+- Jules Tristan, tristan.jules@edu.ece.fr
 
 ## Tasks
   
