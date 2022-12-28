@@ -124,6 +124,6 @@
   2/2  
   Done.
 - Accent color selection  
-  1/4
+  1/4  
   TO FINSIH, user can choose favorite color.
 
