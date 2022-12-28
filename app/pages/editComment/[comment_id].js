@@ -1,12 +1,13 @@
 import { useRouter } from 'next/router'
-import { useUser, useSupabaseClient } from '@supabase/auth-helpers-react'
-import { useState, useEffect } from 'react'
+import { useSupabaseClient } from '@supabase/auth-helpers-react'
+import { useState, useEffect, useContext } from 'react'
 import gravatar from 'gravatar'
 import Image from 'next/image'
 import { withPageAuth } from "@supabase/auth-helpers-nextjs"
+import UserContext from '../../components/UserContext'
 
 const Comment = () => {
-  const user = useUser()
+  const { userProfile } = useContext(UserContext)
   const router = useRouter()
   const { comment_id } = router.query
   const supabase = useSupabaseClient()
@@ -15,7 +16,6 @@ const Comment = () => {
     message: ""
   }
   const [comment, setComment] = useState(initialState)
-  const [userProfile, setUserProfile] = useState([])
 
   function handleChange(e) {
     setComment({ ...comment, [e.target.name]: e.target.value })
@@ -35,25 +35,10 @@ const Comment = () => {
         setComment(data)
       }
     }
-
-    async function getUserProfile() {
-      const { data, error } = await supabase
-        .from('profiles')
-        .select(`username, email`)
-        .eq('id', user?.id)
-        .single()
-      if(error){
-        console.log(error)
-      }
-      else{
-        setUserProfile(data)
-      }
-    }
     
     if(typeof comment_id !== "undifined") {
       getComment()
     }
-    if(user)getUserProfile()
   }, [comment_id])
 
   const updateComment = async () => {
@@ -73,7 +58,7 @@ const Comment = () => {
       alert(error.message)
     }
   }
-
+  if(userProfile)
   return (
     <div className='min-w-full flex flex-col gap-2'>
 
@@ -102,16 +87,8 @@ const Comment = () => {
       </div>
     </div>
   )
+  else return <div>Redirecting</div>
 }
 export default Comment
-
-// export async function getServerSideProps(context) {
-//   console.log(context.params)
-//   return {
-//     props: {
-//       id: context.params.comment_id
-//     },
-//   }
-// }
 
 export const getServerSideProps = withPageAuth({ redirectTo: '/login'})

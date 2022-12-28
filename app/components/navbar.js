@@ -1,16 +1,16 @@
-import { useUser, useSupabaseClient } from "@supabase/auth-helpers-react"
+import { useSupabaseClient } from "@supabase/auth-helpers-react"
 import Link from "next/link"
 import { useRouter } from "next/router"
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import gravatar from 'gravatar'
 import Image from 'next/image'
 import { useTheme } from 'next-themes'
+import UserContext from "./UserContext"
 
 const NavBar = ({navBarStyle}) => {
   const supabaseClient = useSupabaseClient()
-  const user = useUser()
+  const { user, userProfile } = useContext(UserContext)
   const router = useRouter()
-  const [userProfile, setUserProfile] = useState([])
   const {theme, setTheme} = useTheme()
   const [mounted, setMounted] = useState(false)
 
@@ -48,77 +48,67 @@ const NavBar = ({navBarStyle}) => {
     }
   }
 
-  useEffect(() => {
-    async function getUserProfile() {
-      const { data, error } = await supabaseClient
-        .from('profiles')
-        .select(`username, email`)
-        .eq('id', user.id)
-        .single()
-      if(error){
-        console.log(error)
-      }
-      else{
-        setUserProfile(data)
-      }
-    }
-    if(user)getUserProfile() 
-  },[user, supabaseClient, router])
-
   return (
-    <div className={navBarStyle}>
-      <div className="flex gap-2 m-2">
-        {[
-          ['Home', '/'],
-          ['About', '/about'],
-          ['Contacts', '/contacts'],
-          ['Articles', '/articles']
-        ].map(([title, url]) => (
-          <Link href={url} key={url}>
-            <a className="navBarLink">{title === 'Home'? <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
-  <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
-</svg>
- : title}</a>
-          </Link>
-        ))
-        }
-      </div>
-
-      <div className="flex flex-row justify-center items-center text-2xl">
-        WebApp 2022
-      </div>
-
-      <div className="flex justify-end gap-2 m-2 items-center">
-        {darkLightButton()}
-        {user ?
-          <div className="flex flex-row gap-2 items-center">
-            <div className="flex items-center">Hello {userProfile.username}</div>
-            <div className='rounded-full overflow-hidden flex items-center'>
-              <Image src={gravatar.url(userProfile.email ,  {s: '100', r: 'x', d: 'retro'}, true)} alt='avatar' width={40} height={40}/>
-            </div>
-            <Link href={`/profile/${user.id}`}>
-              <a className="navBarLink">Profile</a>
+    <div>
+      {userProfile?
+      <div className={navBarStyle}>
+        <div className="flex gap-2 m-2">
+          {[
+            ['Home', '/'],
+            ['Contacts', '/contacts'],
+            ['Articles', '/articles']
+          ].map(([title, url]) => (
+            <Link href={url} key={url}>
+              <a className="navBarLink">
+                {title === 'Home'? 
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+                  </svg>
+                : title}
+              </a>
             </Link>
-            <button className={"navBarLink"} onClick={() => signout()}>
-              Logout
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75" />
-              </svg>
+          ))
+          }
+        </div>
 
-            </button>
-          </div>
-        :
-          <Link href={'/login'}>
-            <a className={"navBarLink"}>
-              Login
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9" />
-              </svg>
-            </a>
-          </Link>
-        }
+        <div className="flex flex-row justify-center items-center text-2xl">
+          WebApp 2022
+        </div>
 
+        <div className="flex justify-end gap-2 m-2 items-center">
+          {darkLightButton()}
+          {user ?
+            <div className="flex flex-row gap-2 items-center">
+              <div className="flex items-center">Hello {userProfile.username}</div>
+              <div className='rounded-full overflow-hidden flex items-center'>
+                <Image src={gravatar.url(userProfile.email ,  {s: '100', r: 'x', d: 'retro'}, true)} alt='avatar' width={40} height={40}/>
+              </div>
+              <Link href={`/profile/${user.id}`}>
+                <a className="navBarLink">Profile</a>
+              </Link>
+              <button className={"navBarLink"} onClick={() => signout()}>
+                Logout
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75" />
+                </svg>
+
+              </button>
+            </div>
+          :
+            <Link href={'/login'}>
+              <a className={"navBarLink"}>
+                Login
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9" />
+                </svg>
+              </a>
+            </Link>
+          }
+
+        </div>
       </div>
+      : <div>Redirecting</div>
+      }
     </div>
   )
 }

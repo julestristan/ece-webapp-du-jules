@@ -88,5 +88,4 @@ const EditArticle = () => {
 
 export default EditArticle
 
-
 export const getServerSideProps = withPageAuth({ redirectTo: '/login'})

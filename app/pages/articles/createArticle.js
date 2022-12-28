@@ -1,9 +1,9 @@
-import { SupabaseClient } from "@supabase/supabase-js"
-import { useUser, useSupabaseClient } from "@supabase/auth-helpers-react"
+import { useSupabaseClient } from "@supabase/auth-helpers-react"
 import { withPageAuth } from "@supabase/auth-helpers-nextjs"
 import { useRouter } from 'next/router'
-import React from "react"
+import React, { useContext } from "react"
 import { useState } from 'react'
+import UserContext from "../../components/UserContext"
 
 const CreateArticle = () => {
   const router = useRouter()
@@ -11,7 +11,7 @@ const CreateArticle = () => {
     title: "",
     content: ""
   }
-  const user = useUser()
+  const { user } = useContext(UserContext)
   const supabase = useSupabaseClient()
   const [articleData, setArticleData] = useState(initialState)
 

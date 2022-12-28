@@ -1,17 +1,14 @@
 import { useRouter } from 'next/router'
-import { useUser, useSupabaseClient } from '@supabase/auth-helpers-react'
+import { useSupabaseClient } from '@supabase/auth-helpers-react'
 import { withPageAuth } from "@supabase/auth-helpers-nextjs"
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import Image from 'next/image'
 import gravatar from 'gravatar'
-import { useTheme } from 'next-themes'
 
 const UserProfile = () => {
-  const user = useUser()
   const router = useRouter()
   const { user_id } = router.query
   const supabase = useSupabaseClient()
-  const {theme, setTheme} = useTheme()
 
   const initialState = {
     username: "",
@@ -122,7 +119,6 @@ function UserData({userProfile, handleChange}){
 }
 
 function UserPreferencesCard({userProfile, handleChange}){
-  console.log(userProfile.color)
   return(
     <div className={`p-5 themeColor2 rounded-2xl flex flex-col gap-2`}>
         <h1 className='wt-title'>Preferences</h1>

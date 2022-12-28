@@ -1,12 +1,13 @@
 import { useRouter } from 'next/router'
-import { useUser, useSupabaseClient } from '@supabase/auth-helpers-react'
-import { useState, useEffect } from 'react'
+import { useSupabaseClient } from '@supabase/auth-helpers-react'
+import { useState, useEffect, useContext } from 'react'
 import Link from 'next/link'
 import gravatar from 'gravatar'
 import Image from 'next/image'
+import UserContext from '../../components/UserContext'
 
 const Article = () => {
-  const user = useUser()
+  const { user } = useContext(UserContext)
   const router = useRouter()
   const { articleID } = router.query
   const supabase = useSupabaseClient()
@@ -182,21 +183,10 @@ const Article = () => {
 }
 export default Article
 
-export async function getServerSideProps(context) {
-  console.log('context: ')
-  console.log(context.params)
-  return {
-    props: {
-      id: context.params.articleID
-    },
-  }
-}
-
 function Comment({comment}){
   const router = useRouter()
   const supabase = useSupabaseClient()
-  const user = useUser()
-  const [userProfile, setUserProfile] = useState([])
+  const { user, userProfile } = useContext(UserContext)
 
   const deleteComment = async (commentID) => {
     try{
@@ -210,24 +200,7 @@ function Comment({comment}){
       alert(error.message)
     }
   }
-
-  useEffect(() => {
-    async function getUserProfile() {
-      const { data, error } = await supabase
-        .from('profiles')
-        .select(`username, email`)
-        .eq('id', comment.author)
-        .single()
-      if(error){
-        console.log(error)
-      }
-      else{
-        setUserProfile(data)
-      }
-    }
-    getUserProfile()
-  })
-  
+  if(userProfile)
   return(
     <div className='p-4 themeColor1 rounded-2xl flex gap-5 items-center'>
       <Image src={gravatar.url(userProfile.email ,  {s: '100', r: 'x', d: 'retro'}, true)} alt='avatar' width={60} height={60}/>
@@ -235,7 +208,7 @@ function Comment({comment}){
         <div>{userProfile.username} :</div>
         <p className='ml-4 break-normal'>{comment.message}</p>
       </div>
-      {user?.id == comment.author ?
+      {userProfile.id == comment.author ?
         <div className='flex gap-2'>
           <Link href={`/editComment/${comment.id}`}>
             <a className={"rounded-lg px-3 py-2 text-slate-700 font-medium hover:bg-blue-600 bg-blue-400 hover:text-slate-900"}>Edit</a>

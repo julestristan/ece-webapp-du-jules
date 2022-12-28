@@ -106,4 +106,18 @@ create table contacts (
 );
 
 INSERT INTO contacts (firstname, lastname, email, message) VALUES
-  ('david', 'worms', 'david@adaltas.com', E'# Hello\nHope you are enjoying the course.');
+  ('David', 'Worms', 'david@adaltas.com', E'# Hello\nHope you are enjoying the course.');
+
+
+INSERT INTO contacts (firstname, lastname, email, message) VALUES
+  ('Thomas', 'Du', "thomas.du@edu.ece.fr', E'# Hello I'm Thomas.");
+
+
+INSERT INTO contacts (firstname, lastname, email, message) VALUES
+  ('Tristan', 'Jules', 'tristan.jules@edu.ece.fr', E"# Hello\nHello I'm Tristan.");
+
+alter table contacts
+  enable row level security;
+
+create policy "Contacts are viewable by everyone." on contacts
+  for select using (true);
