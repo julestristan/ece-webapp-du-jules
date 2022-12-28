@@ -2,7 +2,7 @@
 
 ## Production
 
-- Vercel URL: https://...
+- Vercel URL: <https://ece-webapp-du-jules.vercel.app>
 - Supabase project URL: <http://localhost:3001>
 
 ## Usage
