@@ -1,11 +1,9 @@
 # Blogging application - ECE Webtech project
 
-*presentation, introduction, ...*
-
 ## Production
 
 - Vercel URL: https://...
-- Supabase project URL: https://app.supabase.com/project/...
+- Supabase project URL: <http://localhost:3001>
 
 ## Usage
 
@@ -69,63 +67,63 @@
 **Project management:**
 
 - Naming convention  
-  *place your graduation and comments*
+  2/2  
+  Conventional commits respected.
 - Project structure  
-  *place your graduation and comments*
+  2/2  
+  Project is relatively well structured.
 - Git  
-  *place your graduation and comments*
+  2/2  
+  Conventional commits respected.
 - Code quality  
-  *place your graduation and comments*
+  3/4  
+  Code is relatively clean
 - Design, UX, and content  
-  *place your graduation and comments*
+  3/4  
+  Relatively good.
 
 **Application development:**
 
 - Home page  
   1/2  
-  A améliorer
+  Done, not much content.
 - Login and profile page  
   3/4  
-  En cours  
-  Login with github
+  Login with github, user information is persisted in React context.
 - New articles creation  
   6/6  
-  Done
+  Done, user can create a new article witch will be stored to the self-hosted database.
 - New comment creation  
   4/4  
-  Done
+  Done.
 - Resource access control  
-  /6  
-  TO DO
+  6/6  
+  Done.
 - Article modification  
   4/4  
-  Done
+  Done.
 - Article removal  
   2/2  
-  Done, when the article is removed all its comments are removed too
+  Done, when the article is removed all its comments are removed too.
 - Comment modification  
   2/2  
-  Done
+  Done.
 - Comment removal  
-  2/2
-  Done
+  2/2  
+  Done.
 - Account settings  
-  /4  
-  Done (username, firstname, lastname, email)
+  4/4  
+  Done (username, firstname, lastname, email).
 - WYSIWYG integration  
-  /2  
-  TO DO
+  0/2  
+  TO DO.
 - Gravatar integration  
   2/2  
-  Done
+  Done.
 - Light/dark theme  
   2/2  
-  Done
+  Done.
 - Accent color selection  
-  /4
-  TO DO
+  1/4
+  TO FINSIH, user can choose favorite color.
 
-## Bonus
-
-- Task title  
-  *place your graduation and comments*
